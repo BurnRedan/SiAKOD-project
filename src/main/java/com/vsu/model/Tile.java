@@ -35,10 +35,6 @@ public class Tile {
         return j + 1 >= grid.matrix[0].length - 1 ? null : grid.matrix[i][j + 1];
     }
 
-    public boolean isWall() {
-        return type == TileType.Wall;
-    }
-
     @Override
     public String toString() {
         return String.format("%s - (%d, %d) weight: %d", type, i, j, weight);
