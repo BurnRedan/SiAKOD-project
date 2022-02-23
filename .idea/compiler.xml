@@ -2,12 +2,12 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="siakod-project-10.2" />
-        <module name="SiAKOD-project" />
+        <module name="graph-project-javafx" />
       </profile>
     </annotationProcessing>
   </component>
