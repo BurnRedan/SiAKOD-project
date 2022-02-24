@@ -29,8 +29,8 @@ public class TileView {
 
         stackPane = new StackPane();
         stackPane.getChildren().add(rectangle);
-        stackPane.setTranslateX(tile.i * size);
-        stackPane.setTranslateY(tile.j * size);
+        stackPane.setTranslateX(tile.row * size);
+        stackPane.setTranslateY(tile.column * size);
     }
 
     public void setTileStroke(boolean setStroke) {

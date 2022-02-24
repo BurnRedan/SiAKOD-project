@@ -54,36 +54,36 @@ public class BacktrackingStrategy extends MazeGenerationStrategy {
 
         tmp = current.north(grid);
         if (tmp != null) {
-            neighbours.add(tmp.i % 2 != 0 ? grid.getMatrix()[tmp.i - 1][tmp.j] : tmp);
+            neighbours.add(tmp.row % 2 != 0 ? grid.getMatrix()[tmp.row - 1][tmp.column] : tmp);
         }
 
         tmp = current.south(grid);
         if (tmp != null) {
-            neighbours.add(tmp.i % 2 != 0 ? grid.getMatrix()[tmp.i + 1][tmp.j] : tmp);
+            neighbours.add(tmp.row % 2 != 0 ? grid.getMatrix()[tmp.row + 1][tmp.column] : tmp);
         }
 
         tmp = current.west(grid);
         if (tmp != null) {
-            neighbours.add(tmp.j % 2 != 0 ? grid.getMatrix()[tmp.i][tmp.j - 1] : tmp);
+            neighbours.add(tmp.column % 2 != 0 ? grid.getMatrix()[tmp.row][tmp.column - 1] : tmp);
         }
 
         tmp = current.east(grid);
         if (tmp != null) {
-            neighbours.add(tmp.j % 2 != 0 ? grid.getMatrix()[tmp.i][tmp.j + 1] : tmp);
+            neighbours.add(tmp.column % 2 != 0 ? grid.getMatrix()[tmp.row][tmp.column + 1] : tmp);
         }
     }
 
     private void removeWallBetween(Grid grid, Tile a, Tile b) {
-        int i = a.i;
-        int j = a.j;
+        int i = a.row;
+        int j = a.column;
 
-        if (a.i < b.i) {
+        if (a.row < b.row) {
             i++;
-        } else if (a.j < b.j) {
+        } else if (a.column < b.column) {
             j++;
-        } else if (a.i > b.i) {
+        } else if (a.row > b.row) {
             i--;
-        } else if (a.j > b.j) {
+        } else if (a.column > b.column) {
             j--;
         }
 

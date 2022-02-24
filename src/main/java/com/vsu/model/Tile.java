@@ -11,32 +11,32 @@ public class Tile {
     TileType type;
     @Getter @Setter
     int weight;
-    public int i;
-    public int j;
+    public int row;
+    public int column;
 
-    public Tile(int i, int j) {
-        this.i = i;
-        this.j = j;
+    public Tile(int row, int column) {
+        this.row = row;
+        this.column = column;
     }
 
     public Tile north(Grid grid) {
-        return i - 1 < 0 ? null : grid.matrix[i - 1][j];
+        return row - 1 < 0 ? null : grid.matrix[row - 1][column];
     }
 
     public Tile south(Grid grid) {
-        return i + 1 >= grid.matrix.length - 1 ? null : grid.matrix[i + 1][j];
+        return row + 1 >= grid.matrix.length - 1 ? null : grid.matrix[row + 1][column];
     }
 
     public Tile west(Grid grid) {
-        return j - 1 < 0 ? null : grid.matrix[i][j - 1];
+        return column - 1 < 0 ? null : grid.matrix[row][column - 1];
     }
 
     public Tile east(Grid grid) {
-        return j + 1 >= grid.matrix[0].length - 1 ? null : grid.matrix[i][j + 1];
+        return column + 1 >= grid.matrix[0].length - 1 ? null : grid.matrix[row][column + 1];
     }
 
     @Override
     public String toString() {
-        return String.format("%s - (%d, %d) weight: %d", type, i, j, weight);
+        return String.format("%s - (%d, %d) weight: %d", type, row, column, weight);
     }
 }

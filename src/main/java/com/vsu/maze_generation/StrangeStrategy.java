@@ -57,36 +57,36 @@ public class StrangeStrategy extends MazeGenerationStrategy {
 
         tmp = tile.north(grid);
         if(tmp != null) {
-            neighbours.add(tmp.j % 2 != 0 ? grid.getMatrix()[tmp.i][tmp.j - 1] : tmp);
+            neighbours.add(tmp.column % 2 != 0 ? grid.getMatrix()[tmp.row][tmp.column - 1] : tmp);
         }
 
         tmp = tile.south(grid);
         if(tmp != null) {
-            neighbours.add(tmp.j % 2 != 0 ? grid.getMatrix()[tmp.i][tmp.j + 1] : tmp);
+            neighbours.add(tmp.column % 2 != 0 ? grid.getMatrix()[tmp.row][tmp.column + 1] : tmp);
         }
 
         tmp = tile.west(grid);
         if(tmp != null) {
-            neighbours.add(tmp.i % 2 != 0 ? grid.getMatrix()[tmp.i - 1][tmp.j] : tmp);
+            neighbours.add(tmp.row % 2 != 0 ? grid.getMatrix()[tmp.row - 1][tmp.column] : tmp);
         }
 
         tmp = tile.east(grid);
         if(tmp != null) {
-            neighbours.add(tmp.i % 2 != 0 ? grid.getMatrix()[tmp.i + 1][tmp.j] : tmp);
+            neighbours.add(tmp.row % 2 != 0 ? grid.getMatrix()[tmp.row + 1][tmp.column] : tmp);
         }
     }
 
     protected void removeWallBetween(Grid grid, Tile a, Tile b) {
-        int x = a.i;
-        int y = a.j;
+        int x = a.row;
+        int y = a.column;
 
-        if (a.i < b.i) {
+        if (a.row < b.row) {
             x++;
-        } else if (a.j < b.j) {
+        } else if (a.column < b.column) {
             y++;
-        } else if (a.i > b.i) {
+        } else if (a.row > b.row) {
             x--;
-        } else if (a.j > b.j) {
+        } else if (a.column > b.column) {
             y--;
         }
 
