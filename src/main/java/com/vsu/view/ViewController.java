@@ -4,7 +4,7 @@ import com.vsu.factory.MazeGenerationFactory;
 import com.vsu.maze_generation.MazeGenAlgorithm;
 import com.vsu.maze_generation.MazeGenerationStrategy;
 import com.vsu.model.Grid;
-import com.vsu.state.GridService;
+import com.vsu.service.GridService;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 

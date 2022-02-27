@@ -11,7 +11,6 @@ public class MazeGenerationFactory {
 
     public MazeGenerationFactory() {
         strategies = new ArrayList<>();
-        strategies.add(new StrangeStrategy());
         strategies.add(new PrimStrategy());
         strategies.add(new KruskalStrategy());
         strategies.add(new BacktrackingStrategy());

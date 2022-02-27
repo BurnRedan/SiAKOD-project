@@ -1,11 +1,9 @@
 package com.vsu.model;
 
 public enum TileType {
-    Root,
-    Target,
+    Forest,
+    Swamp,
     Wall,
-    Empty,
-    Path,
-    Visited,
-    Highlight
+    Pavement,
+    Lake
 }

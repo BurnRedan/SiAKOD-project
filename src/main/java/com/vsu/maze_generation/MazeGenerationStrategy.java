@@ -1,8 +1,6 @@
 package com.vsu.maze_generation;
 
 import com.vsu.model.Grid;
-import com.vsu.model.TileType;
-import com.vsu.state.GridService;
 import lombok.Getter;
 
 @Getter

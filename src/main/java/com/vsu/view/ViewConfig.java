@@ -9,6 +9,7 @@ import lombok.experimental.FieldDefaults;
 import java.util.HashMap;
 import java.util.Map;
 
+//TODO: review
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ViewConfig {
@@ -21,12 +22,10 @@ public class ViewConfig {
 
     private ViewConfig() {
         typeColorMap = new HashMap<>();
-        typeColorMap.put(TileType.Root, Color.YELLOW);
-        typeColorMap.put(TileType.Target, Color.PURPLE);
-        typeColorMap.put(TileType.Empty, Color.WHITE);
+        typeColorMap.put(TileType.Forest, Color.GREENYELLOW);
+        typeColorMap.put(TileType.Swamp, Color.DARKGREEN);
+        typeColorMap.put(TileType.Pavement, Color.WHITE);
         typeColorMap.put(TileType.Wall, Color.BLACK);
-        typeColorMap.put(TileType.Path, Color.DEEPPINK);
-        typeColorMap.put(TileType.Visited, Color.LIGHTGREEN);
-        typeColorMap.put(TileType.Highlight, Color.AZURE);
+        typeColorMap.put(TileType.Lake, Color.ALICEBLUE);
     }
 }

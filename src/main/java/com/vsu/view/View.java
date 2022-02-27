@@ -3,7 +3,8 @@ package com.vsu.view;
 import com.vsu.maze_generation.MazeGenAlgorithm;
 import com.vsu.model.Grid;
 import com.vsu.model.Tile;
-import com.vsu.state.GridService;
+import com.vsu.service.GridService;
+import com.vsu.service.grid.PlaneTopology;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -39,7 +40,7 @@ public class View {
 
     Button genMazeButton;
     Button clearButton;
-    Button createGridButton;
+    //Button createGridButton;
 
     CheckBox setTileStrokeCheckBox;
 
@@ -72,7 +73,7 @@ public class View {
 
         genMazeButton = new Button("Generate maze");
         clearButton = new Button("Clear");
-        createGridButton = new Button("Create grid");
+        //createGridButton = new Button("Create grid");
 
         comboBoxMazeGenAlgorithm = new ComboBox<>(FXCollections.observableArrayList(MazeGenAlgorithm.values()));
         comboBoxMazeGenAlgorithm.getSelectionModel().selectFirst();
@@ -80,8 +81,7 @@ public class View {
         setTileStrokeCheckBox = new CheckBox("Tile border");
         setTileStrokeCheckBox.setSelected(false);
 
-        leftPane.getChildren().addAll(createPane, setTileStrokeCheckBox, genMazeButton, clearButton,
-                createGridButton, comboBoxMazeGenAlgorithm);
+        leftPane.getChildren().addAll(createPane, setTileStrokeCheckBox, genMazeButton, clearButton, comboBoxMazeGenAlgorithm);
         scene = new Scene(initComponents(), WIDTH, HEIGHT);
     }
 
@@ -116,21 +116,18 @@ public class View {
                         }
                     });
         });
-
-        createGridButton.setOnAction(event -> {
-            int x = Integer.parseInt(txtXTiles.getText());
-            x = x % 2 == 0 ? x - 1 : x;
-            int y = Integer.parseInt(txtYTiles.getText());
-            y = y % 2 == 0 ? y - 1 : y;
-            int size = Integer.parseInt(txtTileSize.getText());
-            GridService gridService = new GridService();
-            gridService.initGrid(model.getGrid(), x, y);
-            fillViewGrid(model.getGrid(), size);
-        });
     }
 
     public void createGrid() {
-        createGridButton.fire();
+        int x = Integer.parseInt(txtXTiles.getText());
+        x = x % 2 == 0 ? x - 1 : x;
+        int y = Integer.parseInt(txtYTiles.getText());
+        y = y % 2 == 0 ? y - 1 : y;
+        int size = Integer.parseInt(txtTileSize.getText());
+        GridService gridService = new GridService();
+        //TODO: remove hardcode
+        gridService.initGrid(model.getGrid(), x, y, new PlaneTopology());
+        fillViewGrid(model.getGrid(), size);
     }
 
     private void fillViewGrid(Grid grid, int tileSize) {
@@ -147,4 +144,5 @@ public class View {
         }
         parentGridPane.getChildren().add(gridPane);
     }
+
 }

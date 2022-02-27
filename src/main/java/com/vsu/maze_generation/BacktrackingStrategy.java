@@ -3,7 +3,7 @@ package com.vsu.maze_generation;
 import com.vsu.model.Grid;
 import com.vsu.model.Tile;
 import com.vsu.model.TileType;
-import com.vsu.state.GridService;
+import com.vsu.service.GridService;
 
 import java.util.*;
 
@@ -37,7 +37,7 @@ public class BacktrackingStrategy extends MazeGenerationStrategy {
             }
 
             Tile randomNeighbour = neighbours.get((int) (Math.random() * neighbours.size()));
-            randomNeighbour.setType(TileType.Empty);
+            randomNeighbour.setType(TileType.Pavement);
 
             removeWallBetween(grid, current, randomNeighbour);
 
@@ -87,6 +87,6 @@ public class BacktrackingStrategy extends MazeGenerationStrategy {
             j--;
         }
 
-        grid.getMatrix()[i][j].setType(TileType.Empty);
+        grid.getMatrix()[i][j].setType(TileType.Pavement);
     }
 }
