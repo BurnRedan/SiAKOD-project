@@ -5,6 +5,6 @@ import com.vsu.model.Tile;
 
 import java.util.List;
 
-public interface PathfindingStrategy {
-    public int findPath(Grid grid, List<Tile> path);
+public abstract class PathfindingStrategy {
+    public abstract int findPath(Grid grid, List<Tile> path);
 }

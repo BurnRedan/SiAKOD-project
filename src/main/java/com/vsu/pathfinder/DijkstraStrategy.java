@@ -5,12 +5,12 @@ import com.vsu.model.Tile;
 
 import java.util.List;
 
-public class AStarStrategy extends PathfindingStrategy {
+public class DijkstraStrategy extends PathfindingStrategy {
 
     PathfindingAlgorithms algorithm;
 
-    public AStarStrategy() {
-        algorithm =  PathfindingAlgorithms.AStar;
+    public DijkstraStrategy() {
+        algorithm =  PathfindingAlgorithms.Dijkstra;
     }
 
     @Override
