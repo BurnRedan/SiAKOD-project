@@ -10,8 +10,8 @@ public class WallPassagePolicy extends PassagePolicy {
     }
 
     @Override
-    public Integer getWeight(Tile source, Tile destination) {
+    public Integer getDistance(Tile source, Tile destination) {
         //TODO: can change to returning some value, if pawn has some powers to break walls
-        return null;
+        return Integer.MAX_VALUE;
     }
 }

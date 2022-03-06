@@ -6,18 +6,8 @@ import lombok.Getter;
 @Getter
 public abstract class MazeGenerationStrategy {
 
-    MazeGenAlgorithm type;
-
-
-//    public void generate(Grid grid) {
-//        GridService gridService = new GridService();
-//        gridService.clearGrid(grid);
-//        gridService.fillWithWalls(grid);
-//        algorithm(grid);
-//    }
+    MazeGenAlgorithms type;
 
     public abstract void generate(Grid grid);
-
-    //protected abstract void algorithm(Grid grid);
 
 }

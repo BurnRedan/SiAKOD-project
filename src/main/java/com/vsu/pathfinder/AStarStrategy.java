@@ -3,18 +3,16 @@ package com.vsu.pathfinder;
 import com.vsu.model.Grid;
 import com.vsu.model.Tile;
 
-import java.util.List;
+import java.util.*;
 
 public class AStarStrategy extends PathfindingStrategy {
-
-    PathfindingAlgorithms algorithm;
 
     public AStarStrategy() {
         algorithm =  PathfindingAlgorithms.AStar;
     }
 
     @Override
-    public int findPath(Grid grid, List<Tile> path) {
-        return 0;
+    public List<Tile> findPath(Grid grid, Tile source, Tile destination) {
+        return null;
     }
 }

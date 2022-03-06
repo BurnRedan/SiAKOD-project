@@ -7,14 +7,14 @@ import lombok.Setter;
 @Getter
 public class Grid {
     @Setter
-    int xSize;
+    int rowSize;
     @Setter
-    int ySize;
+    int colSize;
 
     Tile[][] matrix;
 
 
-    public void setMatrix(int xSize, int ySize) {
-        matrix = new Tile[xSize][ySize];
+    public void setMatrix(int rowSize, int colSize) {
+        matrix = new Tile[rowSize][colSize];
     }
 }

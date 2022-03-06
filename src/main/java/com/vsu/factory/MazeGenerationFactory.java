@@ -16,7 +16,7 @@ public class MazeGenerationFactory {
         strategies.add(new BacktrackingStrategy());
     }
 
-    public MazeGenerationStrategy getMazeStrategy(MazeGenAlgorithm strategy) {
+    public MazeGenerationStrategy getStrategy(MazeGenAlgorithms strategy) {
         return strategies.stream().filter(s -> strategy.equals(s.getType())).findFirst().orElse(null);
     }
 }

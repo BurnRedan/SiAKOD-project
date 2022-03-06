@@ -1,6 +1,6 @@
 package com.vsu.maze_generation;
 
-public enum MazeGenAlgorithm {
+public enum MazeGenAlgorithms {
     Backtracking,
     Kruskal,
     Prim

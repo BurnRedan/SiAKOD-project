@@ -18,7 +18,7 @@ public class App extends Application {
     private View createApp() {
         GridView grid = new GridView(new Grid());
         View view = new View(grid);
-        ViewController controller = new ViewController(grid, view);
+        ViewController controller = new ViewController(view);
         return view;
     }
 

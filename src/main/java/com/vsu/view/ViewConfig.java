@@ -10,22 +10,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 //TODO: review
-@Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
 public class ViewConfig {
 
     @Getter
-    static final ViewConfig instance = new ViewConfig();
+    private static final ViewConfig instance = new ViewConfig();
 
-    Map<TileType, Color> typeColorMap;
-    double tileGap = 0;
+    final Map<TileType, Color> tileTypeColorMap;
+    final Map<TileViewType, Color> tileViewTypeColorMap;
+    double tileGap;
 
     private ViewConfig() {
-        typeColorMap = new HashMap<>();
-        typeColorMap.put(TileType.Forest, Color.GREENYELLOW);
-        typeColorMap.put(TileType.Swamp, Color.DARKGREEN);
-        typeColorMap.put(TileType.Pavement, Color.WHITE);
-        typeColorMap.put(TileType.Wall, Color.BLACK);
-        typeColorMap.put(TileType.Lake, Color.ALICEBLUE);
+        tileTypeColorMap = new HashMap<>();
+        tileTypeColorMap.put(TileType.Forest, Color.GREENYELLOW);
+        tileTypeColorMap.put(TileType.Swamp, Color.DARKGREEN);
+        tileTypeColorMap.put(TileType.Pavement, Color.WHITE);
+        tileTypeColorMap.put(TileType.Wall, Color.BLACK);
+        tileTypeColorMap.put(TileType.Lake, Color.ALICEBLUE);
+
+        tileViewTypeColorMap = new HashMap<>();
+        tileViewTypeColorMap.put(TileViewType.Ordinary, tileTypeColorMap.get(TileType.Pavement));
+        tileViewTypeColorMap.put(TileViewType.Root, Color.OLIVE);
+        tileViewTypeColorMap.put(TileViewType.Path, Color.BISQUE);
+        tileViewTypeColorMap.put(TileViewType.Dest, Color.SALMON);
     }
 }

@@ -10,14 +10,14 @@ import java.util.*;
 public class BacktrackingStrategy extends MazeGenerationStrategy {
 
     public BacktrackingStrategy() {
-        type = MazeGenAlgorithm.Backtracking;
+        type = MazeGenAlgorithms.Backtracking;
     }
 
     @Override
     public void generate(Grid grid) {
 
         GridService gridService = new GridService();
-        gridService.clearGrid(grid);
+        //gridService.clearGrid(grid);
         gridService.fillWithWalls(grid);
 
         Stack<Tile> stack = new Stack<>();

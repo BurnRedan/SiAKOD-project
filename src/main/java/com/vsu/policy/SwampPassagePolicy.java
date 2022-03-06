@@ -10,7 +10,7 @@ public class SwampPassagePolicy extends PassagePolicy {
     }
 
     @Override
-    public Integer getWeight(Tile source, Tile destination) {
+    public Integer getDistance(Tile source, Tile destination) {
         return 0;
     }
 }

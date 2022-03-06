@@ -1,28 +1,29 @@
 package com.vsu.view;
 
 import com.vsu.factory.MazeGenerationFactory;
-import com.vsu.maze_generation.MazeGenAlgorithm;
+import com.vsu.factory.PathfindingFactory;
+import com.vsu.maze_generation.MazeGenAlgorithms;
 import com.vsu.maze_generation.MazeGenerationStrategy;
 import com.vsu.model.Grid;
+import com.vsu.model.Tile;
+import com.vsu.pathfinder.PathfindingAlgorithms;
 import com.vsu.service.GridService;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ViewController {
-    GridView model;
-    View view;
 
-    public ViewController(GridView model, View view) {
-        this.model = model;
-        this.view = view;
-        this.view.createGrid();
+    public ViewController(View view) {
+        view.createGrid();
         view.setTriggers(this);
     }
 
-    public void generateMaze(MazeGenAlgorithm algorithm, Grid grid) {
+    public void generateMaze(MazeGenAlgorithms algorithm, Grid grid) {
         MazeGenerationFactory mazeGenerationFactory = new MazeGenerationFactory();
-        MazeGenerationStrategy strategy = mazeGenerationFactory.getMazeStrategy(algorithm);
+        MazeGenerationStrategy strategy = mazeGenerationFactory.getStrategy(algorithm);
         GridService gridService = new GridService();
         gridService.generateMaze(grid, strategy);
     }
@@ -38,4 +39,15 @@ public class ViewController {
     }
 
 
+    public void getPath(PathfindingAlgorithms algorithm, Grid grid, Tile source, Tile dest) {
+        for (Tile[] row : grid.getMatrix()) {
+            for (Tile tile : row) {
+                tile.setPath(false);
+            }
+        }
+        List<Tile> path = new PathfindingFactory().getStrategy(algorithm).findPath(grid, source, dest);
+        for (Tile tile : path) {
+            tile.setPath(true);
+        }
+    }
 }

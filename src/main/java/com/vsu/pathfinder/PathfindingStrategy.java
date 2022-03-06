@@ -2,9 +2,14 @@ package com.vsu.pathfinder;
 
 import com.vsu.model.Grid;
 import com.vsu.model.Tile;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public abstract class PathfindingStrategy {
-    public abstract int findPath(Grid grid, List<Tile> path);
+
+    PathfindingAlgorithms algorithm;
+
+    public abstract List<Tile> findPath(Grid grid, Tile source, Tile destination);
 }

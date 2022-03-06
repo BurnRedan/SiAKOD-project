@@ -10,9 +10,9 @@ public class PavementPassagePolicy extends PassagePolicy {
     }
 
     @Override
-    public Integer getWeight(Tile source, Tile destination) {
+    public Integer getDistance(Tile source, Tile destination) {
         if (source.getType() == TileType.Pavement) {
-            return DEFAULT_WEIGHT;
+            return source.getWeight() + destination.getWeight();
         }
         //TODO: add biomes
         return 0;
