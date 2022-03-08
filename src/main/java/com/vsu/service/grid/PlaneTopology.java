@@ -1,5 +1,8 @@
 package com.vsu.service.grid;
 
+import com.vsu.factory.LandGenFactory;
+import com.vsu.landscape.LandGenStrategy;
+import com.vsu.landscape.LandGenType;
 import com.vsu.model.Grid;
 import com.vsu.model.Tile;
 
@@ -31,12 +34,13 @@ public class PlaneTopology implements GridTopology {
         grid.setMatrix(rowCount, columnCount);
         grid.setRowSize(rowCount);
         grid.setColSize(columnCount);
-
-        for (int y = 0; y < grid.getColSize(); y++) {
-            for (int x = 0; x < grid.getRowSize(); x++) {
-                //TODO: remove random weights after landscape generation
-                int weight = ThreadLocalRandom.current().nextInt(1, 99);
-                grid.getMatrix()[x][y] = new Tile(x, y, new PlaneTopology(), weight);
+        //TODO: remove random land gen strategy with actual land gen
+        LandGenStrategy landGenStrategy = new LandGenFactory().getStrategy(LandGenType.Random);
+        int[][] landscape = landGenStrategy.getLandscape(rowCount, columnCount);
+        for (int i = 0; i < grid.getRowSize(); i++) {
+            for (int j = 0; j < grid.getColSize(); j++) {
+                int weight = landscape[i][j];
+                grid.getMatrix()[i][j] = new Tile(i, j, new PlaneTopology(), weight);
             }
         }
     }
