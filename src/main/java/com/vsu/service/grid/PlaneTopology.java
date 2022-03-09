@@ -6,8 +6,6 @@ import com.vsu.landscape.LandGenType;
 import com.vsu.model.Grid;
 import com.vsu.model.Tile;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 public class PlaneTopology implements GridTopology {
     @Override
     public Tile north(Tile source, Grid grid) {
