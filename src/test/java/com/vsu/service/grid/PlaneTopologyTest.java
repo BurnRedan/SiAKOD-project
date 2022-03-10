@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PlaneTopologyTest {
 
-    //TODO
     @Test
     void north() {
         Grid grid = new Grid();
