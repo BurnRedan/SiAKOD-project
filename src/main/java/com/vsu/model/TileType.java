@@ -5,5 +5,6 @@ public enum TileType {
     Swamp,
     Wall,
     Pavement,
-    Lake
+    Lake,
+    Room
 }

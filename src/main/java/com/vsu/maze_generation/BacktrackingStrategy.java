@@ -17,7 +17,6 @@ public class BacktrackingStrategy extends MazeGenerationStrategy {
     public void generate(Grid grid) {
 
         GridService gridService = new GridService();
-        //gridService.clearGrid(grid);
         gridService.fillWithWalls(grid);
 
         Stack<Tile> stack = new Stack<>();
@@ -37,13 +36,16 @@ public class BacktrackingStrategy extends MazeGenerationStrategy {
             }
 
             Tile randomNeighbour = neighbours.get((int) (Math.random() * neighbours.size()));
-            randomNeighbour.setType(TileType.Pavement);
 
-            removeWallBetween(grid, current, randomNeighbour);
+            if (randomNeighbour.getType() != TileType.Room) {
+                randomNeighbour.setType(TileType.Pavement);
+                removeWallBetween(grid, current, randomNeighbour);
+                current = randomNeighbour;
+                stack.push(randomNeighbour);
+            }
 
-            current = randomNeighbour;
             visited.add(randomNeighbour);
-            stack.push(randomNeighbour);
+
         }
     }
 
@@ -87,6 +89,10 @@ public class BacktrackingStrategy extends MazeGenerationStrategy {
             j--;
         }
 
-        grid.getMatrix()[i][j].setType(TileType.Pavement);
+        Tile tile = grid.getMatrix()[i][j];
+        if (tile.getType() == TileType.Room) {
+            return;
+        }
+        tile.setType(TileType.Pavement);
     }
 }
