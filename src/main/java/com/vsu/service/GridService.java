@@ -6,20 +6,22 @@ import com.vsu.model.Tile;
 import com.vsu.model.TileType;
 import com.vsu.service.grid.GridTopology;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.HashSet;
+
+import static com.vsu.model.Direction2D.*;
 
 public class GridService {
 
     public void initGrid(Grid grid, int rowCount, int columnCount, GridTopology archetype) {
         archetype.initGrid(grid, rowCount, columnCount);
-        //setRooms(grid, 4);
     }
 
     public void generateMaze(Grid grid, MazeGenerationStrategy strategy) {
+        //TODO: делать генерацию не сразу, а сначала делать разметку, потом вызвать метод apply(List<Vector2>)
         strategy.generate(grid);
     }
 
-    public void clearGrid(Grid grid) {
+    public void fillWithPavements(Grid grid) {
         for (int y = 0; y < grid.getColSize(); y++) {
             for (int x = 0; x < grid.getRowSize(); x++) {
                 grid.getMatrix()[x][y].setType(TileType.Pavement);
@@ -39,34 +41,12 @@ public class GridService {
         }
     }
 
-
-    //TODO
-    public void setRooms(Grid grid, int count) {
-        for (int room = 0; room < count; room++) {
-            int row = ThreadLocalRandom.current().nextInt(0, grid.getRowSize() - 2);
-            int col = ThreadLocalRandom.current().nextInt(0, grid.getColSize() - 2);
-            float c = ThreadLocalRandom.current().nextFloat(0.05f, 0.1f);
-            int s = (int) ((row + 1) * (col + 1) * c);
-            c = ThreadLocalRandom.current().nextFloat(0.1f, 0.15f);
-            int h = (int) (c * s) + 1;
-            int w = s / h;
-            int i = row, j = col;
-            int iEnd = i + h, jEnd = col + w;
-            if (iEnd >= grid.getRowSize()) {
-                iEnd = grid.getRowSize() - 2;
-            }
-            if (jEnd >= grid.getColSize()) {
-                jEnd = grid.getColSize() - 2;
-            }
-            Tile[][] m = grid.getMatrix();
-            while (m[i][j] != null && i < iEnd) {
-                while (m[i][j] != null && j < jEnd) {
-                    m[i][j].setType(TileType.Room);
-                    j++;
-                }
-                i++;
-                j = col;
-            }
+    //TODO: может вылететь с ошибкой из-за выхода за границы
+    public void genMazeByLayout(Grid grid, HashSet<Position> layout) {
+        int i = 0;
+        for (Position pos : layout) {
+            i++;
+            grid.getMatrix()[pos.row][pos.col].setType(TileType.Pavement);
         }
     }
 }

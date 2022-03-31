@@ -30,12 +30,12 @@ public class ViewController {
 
     public void clearGrid(Grid grid) {
         GridService gridService = new GridService();
-        gridService.clearGrid(grid);
+        gridService.fillWithPavements(grid);
     }
 
     public void clearGrid(GridView model) {
         GridService gridService = new GridService();
-        gridService.clearGrid(model.getGrid());
+        gridService.fillWithPavements(model.getGrid());
     }
 
 

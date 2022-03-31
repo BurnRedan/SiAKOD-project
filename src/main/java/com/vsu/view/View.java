@@ -36,9 +36,9 @@ public class View implements PropertyChangeListener {
     TextField txtTileSize;
 
     int padding = 2;
-    String defaultRowSize = "35";
-    String defaultColSize = "55";
-    String defaultTileSize = "20";
+    String defaultRowSize = "115";
+    String defaultColSize = "181";
+    String defaultTileSize = "6";
     double leftPanelSize = 0.2;
 
     VBox leftPane;
@@ -68,10 +68,10 @@ public class View implements PropertyChangeListener {
         GridPane createPane = new GridPane();
         createPane.setHgap(5);
         createPane.setPadding(new Insets(padding, padding, padding, padding));
-        createPane.add(new Text("X: "), 0, 0);
+        createPane.add(new Text("Row: "), 0, 0);
         txtXTiles = new TextField(defaultRowSize);
         createPane.add(txtXTiles, 1, 0);
-        createPane.add(new Text("Y: "), 2, 0);
+        createPane.add(new Text("Col: "), 2, 0);
         txtYTiles = new TextField(defaultColSize);
         createPane.add(txtYTiles, 3, 0);
         createPane.add(new Text("Size: "), 4, 0);
@@ -149,7 +149,12 @@ public class View implements PropertyChangeListener {
                             resetGrid(model);
                             repaintGrid(model.getGrid(), size);
                             viewController
-                                    .getPath(item, model.getGrid(), model.getRoot().getTile(), model.getTarget().getTile());
+                                    .getPath(
+                                            item,
+                                            model.getGrid(),
+                                            model.getRoot().getTile(),
+                                            model.getTarget().getTile()
+                                    );
                             repaintGrid(model.getGrid(), size);
                         }
                     });
@@ -239,7 +244,8 @@ public class View implements PropertyChangeListener {
     private void resetGrid(GridView model) {
         for (TileView[] row : model.getMatrix()) {
             for (TileView tile : row) {
-                if (!tile.getTile().equals(model.getRoot().getTile()) && !tile.getTile().equals(model.getTarget().getTile())) {
+                if (!tile.getTile().equals(model.getRoot().getTile()) &&
+                        !tile.getTile().equals(model.getTarget().getTile())) {
                     tile.setColor(ViewConfig.getInstance().getTileTypeColorMap().get(tile.getTile().getType()));
                     tile.getTile().setPath(false);
                 }
