@@ -71,7 +71,7 @@ public class DijkstraStrategy extends PathfindingStrategy {
                 break;
             }
 
-            List<Node> neighbours = getNeighbours(grid, node.tile);
+            List<Node> neighbours = neighbours(grid, node.tile);
             for (Node neighbour : neighbours) {
                 Integer alt = new PassagePolicyFactory().getDistance(node.tile, neighbour.tile);
                 if (alt < dist.get(neighbour.tile)) {
@@ -95,28 +95,14 @@ public class DijkstraStrategy extends PathfindingStrategy {
         return new ArrayList<>(dist.keySet());
     }
 
-    private List<Node> getNeighbours(Grid grid, Tile tile) {
-        Tile tmp;
+    private List<Node> neighbours(Grid grid, Tile tile) {
         List<Node> neighbours = new ArrayList<>();
-
-        tmp = tile.north(grid);
-        if (tmp != null) {
-            neighbours.add(new Node(tmp, null));
+        List<Tile> n = super.getNeighbours(grid, tile);
+        for (Tile t : n) {
+            neighbours.add(new Node(t, null));
         }
-        tmp = tile.south(grid);
-        if (tmp != null) {
-            neighbours.add(new Node(tmp, null));
-        }
-        tmp = tile.west(grid);
-        if (tmp != null) {
-            neighbours.add(new Node(tmp, null));
-        }
-        tmp = tile.east(grid);
-        if (tmp != null) {
-            neighbours.add(new Node(tmp, null));
-        }
-
         return neighbours;
+
     }
 
 }
