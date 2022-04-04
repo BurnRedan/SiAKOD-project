@@ -19,4 +19,10 @@ class TileTest {
         Tile tile2 = new Tile(5, 5, new PlaneTopology(), 5);
         assertNotEquals(tile1, tile2);
     }
+
+    @Test
+    public void testToString(){
+        Tile tile = new Tile(5, 6, new PlaneTopology(), 5);
+        assertEquals("Pavement - (row: 5, col: 6) weight: 5", tile.toString());
+    }
 }

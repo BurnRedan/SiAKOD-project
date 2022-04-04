@@ -24,6 +24,7 @@ import java.beans.PropertyChangeListener;
 
 public class View implements PropertyChangeListener {
 
+
     int WIDTH = 1380;
     int HEIGHT = 700;
 

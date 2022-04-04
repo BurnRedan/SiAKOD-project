@@ -33,7 +33,6 @@ public class Direction2D {
             return new Position(this.row - val, this.col - val);
         }
 
-        //TODO: test
         public static int distance(Position p1, Position p2) {
             return (p1.row - p2.row) * (p1.row - p2.row) + (p1.col - p2.col) * (p1.col - p2.col);
         }
@@ -47,6 +46,7 @@ public class Direction2D {
             new Position(-1, 0)
     );
 
+    //TODO: test
     public static Position getRandomDirection() {
         return cardinalDirectionList.get(new Random().nextInt(0, cardinalDirectionList.size()));
     }
