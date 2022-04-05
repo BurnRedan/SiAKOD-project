@@ -58,7 +58,6 @@ public class DijkstraStrategy extends PathfindingStrategy {
             if (node.tile.equals(destination)) {
                 List<Tile> path = new ArrayList<>();
                 source.setRoot(true);
-                destination.setDest(true);
                 path.add(source);
                 while (prev.get(node.tile) != null) {
                     path.add(node.tile);

@@ -49,6 +49,7 @@ public class Direction2D {
     //TODO: test
     public static Position getRandomDirection() {
         return cardinalDirectionList.get(new Random().nextInt(0, cardinalDirectionList.size()));
+        
     }
 
 }

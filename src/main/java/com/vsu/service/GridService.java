@@ -25,6 +25,9 @@ public class GridService {
         for (int y = 0; y < grid.getColSize(); y++) {
             for (int x = 0; x < grid.getRowSize(); x++) {
                 grid.getMatrix()[x][y].setType(TileType.Pavement);
+                grid.getMatrix()[x][y].setRoot(false);
+                grid.getMatrix()[x][y].setDest(false);
+                grid.getMatrix()[x][y].setPath(false);
             }
         }
     }
