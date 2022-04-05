@@ -27,7 +27,9 @@ public class GridView {
     }
 
     public void setGrid() {
-        matrix = new TileView[getGrid().getRowSize()][grid.getColSize()];
+        matrix = new TileView[grid.getRowSize()][grid.getColSize()];
     }
+
+
 
 }

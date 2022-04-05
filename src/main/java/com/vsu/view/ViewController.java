@@ -7,6 +7,7 @@ import com.vsu.maze_generation.MazeGenerationStrategy;
 import com.vsu.model.Grid;
 import com.vsu.model.Tile;
 import com.vsu.pathfinder.PathfindingAlgorithms;
+import com.vsu.pathfinder.PathfindingStrategy;
 import com.vsu.service.GridService;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -33,18 +34,13 @@ public class ViewController {
         gridService.fillWithPavements(grid);
     }
 
-    public void clearGrid(GridView model) {
-        GridService gridService = new GridService();
-        gridService.fillWithPavements(model.getGrid());
-    }
-
-
     public void getPath(PathfindingAlgorithms algorithm, Grid grid, Tile source, Tile dest) {
         for (Tile[] row : grid.getMatrix()) {
             for (Tile tile : row) {
                 tile.setPath(false);
             }
         }
+        dest.setDest(true);
         List<Tile> path = new PathfindingFactory().getStrategy(algorithm).findPath(grid, source, dest);
         for (Tile tile : path) {
             tile.setPath(true);

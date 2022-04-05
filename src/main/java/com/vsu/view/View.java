@@ -10,9 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -37,9 +34,9 @@ public class View implements PropertyChangeListener {
     TextField txtTileSize;
 
     int padding = 2;
-    String defaultRowSize = "115";
-    String defaultColSize = "181";
-    String defaultTileSize = "6";
+    String defaultRowSize = "60";
+    String defaultColSize = "60";
+    String defaultTileSize = "12";
     double leftPanelSize = 0.2;
 
     VBox leftPane;
@@ -121,8 +118,9 @@ public class View implements PropertyChangeListener {
     public void setTriggers(ViewController viewController) {
 
         clearButton.setOnAction(event -> {
-            viewController.clearGrid(model);
+            viewController.clearGrid(model.getGrid());
             int size = Integer.parseInt(txtTileSize.getText());
+            initGridView(model.getGrid(), size);
             repaintGrid(model.getGrid(), size);
         });
 
@@ -132,8 +130,10 @@ public class View implements PropertyChangeListener {
                     .filter(item -> mazeGenAlgorithmsComboBox.getValue().toString().equals(item.toString()))
                     .forEachOrdered(item -> {
                         if (gridPane != null) {
+                            viewController.clearGrid(model.getGrid());
                             viewController.generateMaze(item, model.getGrid());
                             int size = Integer.parseInt(txtTileSize.getText());
+                            initGridView(model.getGrid(), size);
                             repaintGrid(model.getGrid(), size);
                         }
                     });

@@ -41,7 +41,7 @@ public class ProceduralGenAlgorithms {
 
     //TODO: test
     private static void splitVertically(Queue<BoundingBox> roomsQueue, BoundingBox room) {
-        int xSplit = new Random().nextInt(1, room.width);
+        int xSplit = new Random().nextInt(room.width) + 1;
         BoundingBox room1 = new BoundingBox(xSplit, room.height, room.startPoint);
         BoundingBox room2 = new BoundingBox(room.width - xSplit, room.height,
                 new Position(room.startPoint.row, room.startPoint.col + xSplit));
@@ -50,7 +50,7 @@ public class ProceduralGenAlgorithms {
     }
 
     private static void splitHorizontally(Queue<BoundingBox> roomsQueue, BoundingBox room) {
-        int ySplit = new Random().nextInt(1, room.height);
+        int ySplit = new Random().nextInt(room.height) + 1;
         BoundingBox room1 = new BoundingBox(room.width, ySplit, room.startPoint);
         BoundingBox room2 = new BoundingBox(room.width, room.height - ySplit,
                 new Position(room.startPoint.row + ySplit, room.startPoint.col));
