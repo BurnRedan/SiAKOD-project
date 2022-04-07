@@ -29,8 +29,8 @@ public class View implements PropertyChangeListener {
     Scene scene;
 
     int padding = 2;
-    int defaultRowCount = 70;
-    int defaultColCount = 110;
+    int defaultRowCount = 69;
+    int defaultColCount = 109;
     int defaultTileSize = 10;
     double leftPanelSize = 0.2;
 
@@ -148,9 +148,9 @@ public class View implements PropertyChangeListener {
 
     public void createGrid() {
         int rowCount = defaultRowCount;
-        rowCount = rowCount % 2 == 0 ? rowCount - 1 : rowCount;
+        rowCount = rowCount % 2 == 0 ? rowCount + 1 : rowCount;
         int colCount = defaultColCount;
-        colCount = colCount % 2 == 0 ? colCount - 1 : colCount;
+        colCount = colCount % 2 == 0 ? colCount + 1 : colCount;
         int size = defaultTileSize;
         GridService gridService = new GridService();
         gridService.initGrid(model.getGrid(), rowCount, colCount, new PlaneTopology());

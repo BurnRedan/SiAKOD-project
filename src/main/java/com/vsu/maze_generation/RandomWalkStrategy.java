@@ -12,6 +12,7 @@ import static com.vsu.maze_generation.dungeon.Direction2D.*;
 public class RandomWalkStrategy extends MazeGenerationStrategy {
 
     public RandomWalkStrategy() {
+        super(false);
         type = MazeGenAlgorithms.RandomWalk;
     }
 
@@ -33,6 +34,14 @@ public class RandomWalkStrategy extends MazeGenerationStrategy {
         HashSet<Position> layout = new RoomGenerator(new Position(0, 0),
                 grid.getRowSize() - 1, grid.getColSize() - 1, parameters).createRooms();
 
-        gridService.genMazeByLayout(grid, layout);
+        genMazeByLayout(grid, layout);
+    }
+
+    private void genMazeByLayout(Grid grid, HashSet<Position> layout) {
+        int i = 0;
+        for (Position pos : layout) {
+            i++;
+            super.setPathTileType(grid.getMatrix()[pos.row][pos.col]);
+        }
     }
 }

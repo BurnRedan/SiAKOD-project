@@ -1,10 +1,10 @@
 package com.vsu.model;
 
 public enum TileType {
-    Forest,
-    Swamp,
     Wall,
     Pavement,
+    Room,
+    Forest,
     Lake,
-    Room
+    Swamp
 }

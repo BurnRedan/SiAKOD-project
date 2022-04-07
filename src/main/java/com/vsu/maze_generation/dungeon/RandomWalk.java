@@ -1,7 +1,7 @@
 package com.vsu.maze_generation.dungeon;
 
 import com.vsu.maze_generation.dungeon.parameters.DungeonGenParameters;
-import com.vsu.service.GenerationService;
+import com.vsu.service.MazeGenService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -59,7 +59,7 @@ public class RandomWalk {
         Position prevPos = new Position(pos.row, pos.col);
         path.add(prevPos);
         for (int i = 0; i < parameters.walkLength; i++) {
-            Position newPos = GenerationService.getVector2ByDirection(prevPos, getRandomDirection(), rowCount, colCount);
+            Position newPos = MazeGenService.getVector2ByDirection(prevPos, getRandomDirection(), rowCount, colCount);
             path.add(newPos);
             prevPos.row = newPos.row;
             prevPos.col = newPos.col;

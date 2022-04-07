@@ -3,16 +3,14 @@ package com.vsu.maze_generation;
 import com.vsu.model.Grid;
 import com.vsu.model.Tile;
 import com.vsu.model.TileType;
-import com.vsu.service.GenerationTileType;
 import com.vsu.service.GridService;
 
 import java.util.*;
 
 public class BacktrackingStrategy extends MazeGenerationStrategy {
 
-    GenerationTileType generationTileType = new GenerationTileType();
-
     public BacktrackingStrategy() {
+        super(false);
         type = MazeGenAlgorithms.Backtracking;
     }
 
@@ -41,7 +39,7 @@ public class BacktrackingStrategy extends MazeGenerationStrategy {
             Tile randomNeighbour = neighbours.get((int) (Math.random() * neighbours.size()));
 
             if (randomNeighbour.getType() != TileType.Room) {
-                randomNeighbour.setType(generationTileType.generate(randomNeighbour.row, randomNeighbour.column));
+                super.setPathTileType(randomNeighbour);
                 removeWallBetween(grid, current, randomNeighbour);
                 current = randomNeighbour;
                 stack.push(randomNeighbour);
@@ -58,36 +56,36 @@ public class BacktrackingStrategy extends MazeGenerationStrategy {
 
         tmp = current.north(grid);
         if (tmp != null) {
-            neighbours.add(tmp.row % 2 != 0 ? grid.getMatrix()[tmp.row - 1][tmp.column] : tmp);
+            neighbours.add(tmp.row % 2 != 0 ? grid.getMatrix()[tmp.row - 1][tmp.col] : tmp);
         }
 
         tmp = current.south(grid);
         if (tmp != null) {
-            neighbours.add(tmp.row % 2 != 0 ? grid.getMatrix()[tmp.row + 1][tmp.column] : tmp);
+            neighbours.add(tmp.row % 2 != 0 ? grid.getMatrix()[tmp.row + 1][tmp.col] : tmp);
         }
 
         tmp = current.west(grid);
         if (tmp != null) {
-            neighbours.add(tmp.column % 2 != 0 ? grid.getMatrix()[tmp.row][tmp.column - 1] : tmp);
+            neighbours.add(tmp.col % 2 != 0 ? grid.getMatrix()[tmp.row][tmp.col - 1] : tmp);
         }
 
         tmp = current.east(grid);
         if (tmp != null) {
-            neighbours.add(tmp.column % 2 != 0 ? grid.getMatrix()[tmp.row][tmp.column + 1] : tmp);
+            neighbours.add(tmp.col % 2 != 0 ? grid.getMatrix()[tmp.row][tmp.col + 1] : tmp);
         }
     }
 
     private void removeWallBetween(Grid grid, Tile a, Tile b) {
         int i = a.row;
-        int j = a.column;
+        int j = a.col;
 
         if (a.row < b.row) {
             i++;
-        } else if (a.column < b.column) {
+        } else if (a.col < b.col) {
             j++;
         } else if (a.row > b.row) {
             i--;
-        } else if (a.column > b.column) {
+        } else if (a.col > b.col) {
             j--;
         }
 
@@ -95,6 +93,7 @@ public class BacktrackingStrategy extends MazeGenerationStrategy {
         if (tile.getType() == TileType.Room) {
             return;
         }
-        tile.setType(generationTileType.generate(i, j));
+
+        super.setPathTileType(tile);
     }
 }

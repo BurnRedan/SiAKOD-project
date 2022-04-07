@@ -11,12 +11,12 @@ import lombok.experimental.FieldDefaults;
 @EqualsAndHashCode
 public class Tile {
     @EqualsAndHashCode.Exclude final GridTopology archetype;
-    @Getter @Setter
+    @Getter
     TileType type;
     @Getter @Setter
     int weight;
     public int row;
-    public int column;
+    public int col;
     @Getter @Setter
     @EqualsAndHashCode.Exclude boolean isPath;
     @Getter @Setter
@@ -24,9 +24,9 @@ public class Tile {
     @Getter @Setter
     boolean isDest;
 
-    public Tile(int row, int column, GridTopology archetype, int weight) {
+    public Tile(int row, int col, GridTopology archetype, int weight) {
         this.row = row;
-        this.column = column;
+        this.col = col;
         this.archetype = archetype;
         type = TileType.Pavement;
         this.weight = weight;
@@ -51,7 +51,11 @@ public class Tile {
 
     @Override
     public String toString() {
-        return String.format("%s - (row: %d, col: %d) weight: %d", type, row, column, weight);
+        return String.format("%s - (row: %d, col: %d) weight: %d", type, row, col, weight);
     }
 
+    public void setType(TileType type) {
+        this.type = type;
+        weight = type.ordinal();
+    }
 }
