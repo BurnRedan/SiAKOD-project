@@ -42,7 +42,7 @@ public class TileView {
         stackPane = new StackPane();
         stackPane.getChildren().add(rectangle);
         stackPane.setTranslateY(tile.row * size);
-        stackPane.setTranslateX(tile.column * size);
+        stackPane.setTranslateX(tile.col * size);
 
         isClicked = false;
 
@@ -65,7 +65,7 @@ public class TileView {
         stackPane = new StackPane();
         stackPane.getChildren().add(rectangle);
         stackPane.setTranslateY(tile.row * size);
-        stackPane.setTranslateX(tile.column * size);
+        stackPane.setTranslateX(tile.col * size);
 
         setEvents();
     }
@@ -88,7 +88,7 @@ public class TileView {
                 }
                 if (!(gridView.getRoot() == null)) {
                     gridView.getRoot().setColorEvent(ViewConfig.getINSTANCE()
-                            .getTileViewTypeColorMap().get(TileViewType.Ordinary));
+                            .getTileTypeColorMap().get(tile.getType()));
                 }
                 gridView.setRoot(this);
                 setColorEvent(ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Source));
@@ -123,7 +123,7 @@ public class TileView {
         rectangle.resize(size - ViewConfig.getINSTANCE().getTileGap(),
                 size - ViewConfig.getINSTANCE().getTileGap());
         stackPane.setTranslateY(tile.row * size);
-        stackPane.setTranslateX(tile.column * size);
+        stackPane.setTranslateX(tile.col * size);
         if (!isClicked) {
             rectangle.setFill(ViewConfig.getINSTANCE().getTileTypeColorMap().get(tile.getType()));
         }

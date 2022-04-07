@@ -89,7 +89,7 @@ public class View implements PropertyChangeListener {
         findPathButton = new Button("Find path");
 
         Label tileTypeLabel = new Label("Tile picker");
-        tileViewTypeComboBox = new ComboBox<>((FXCollections.observableArrayList(TileViewType.Source, TileViewType.Path)));
+        tileViewTypeComboBox = new ComboBox<>((FXCollections.observableArrayList(TileViewType.Source, TileViewType.Destination)));
         tileViewTypeComboBox.getSelectionModel().selectFirst();
         Label mazeGenLabel = new Label("Maze generation algorithm");
         mazeGenAlgorithmsComboBox = new ComboBox<>(FXCollections.observableArrayList(MazeGenAlgorithms.values()));
