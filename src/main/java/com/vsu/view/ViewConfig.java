@@ -1,8 +1,10 @@
 package com.vsu.view;
 
+import com.vsu.AI.EntityType;
 import com.vsu.model.TileType;
 import javafx.scene.paint.Color;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
 import java.util.HashMap;
@@ -17,6 +19,7 @@ public class ViewConfig {
 
     Map<TileType, Color> tileTypeColorMap;
     Map<TileViewType, Color> tileViewTypeColorMap;
+    Map<EntityType, Color> entityTypeColorMap;
     double tileGap;
 
     private ViewConfig(int tileGap) {
@@ -25,7 +28,7 @@ public class ViewConfig {
         tileTypeColorMap.put(TileType.Swamp, Color.DARKGREEN);
         tileTypeColorMap.put(TileType.Pavement, Color.WHITE);
         tileTypeColorMap.put(TileType.Wall, Color.BLACK);
-        tileTypeColorMap.put(TileType.Lake, Color.BLUE);
+        tileTypeColorMap.put(TileType.Lake, Color.ALICEBLUE);
         tileTypeColorMap.put(TileType.Room, Color.PALEGOLDENROD);
 
         tileViewTypeColorMap = new HashMap<>();
@@ -33,6 +36,10 @@ public class ViewConfig {
         tileViewTypeColorMap.put(TileViewType.Source, Color.OLIVE);
         tileViewTypeColorMap.put(TileViewType.Path, Color.BISQUE);
         tileViewTypeColorMap.put(TileViewType.Destination, Color.SALMON);
+
+        entityTypeColorMap = new HashMap<>();
+        getEntityTypeColorMap().put(EntityType.Seeker, Color.RED);
+        getEntityTypeColorMap().put(EntityType.Runner, Color.BLUE);
 
         this.tileGap = tileGap;
     }
