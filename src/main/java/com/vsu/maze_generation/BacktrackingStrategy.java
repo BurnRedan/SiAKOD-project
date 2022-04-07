@@ -3,11 +3,14 @@ package com.vsu.maze_generation;
 import com.vsu.model.Grid;
 import com.vsu.model.Tile;
 import com.vsu.model.TileType;
+import com.vsu.service.GenerationTileType;
 import com.vsu.service.GridService;
 
 import java.util.*;
 
 public class BacktrackingStrategy extends MazeGenerationStrategy {
+
+    GenerationTileType generationTileType = new GenerationTileType();
 
     public BacktrackingStrategy() {
         type = MazeGenAlgorithms.Backtracking;
@@ -38,7 +41,7 @@ public class BacktrackingStrategy extends MazeGenerationStrategy {
             Tile randomNeighbour = neighbours.get((int) (Math.random() * neighbours.size()));
 
             if (randomNeighbour.getType() != TileType.Room) {
-                randomNeighbour.setType(TileType.Pavement);
+                randomNeighbour.setType(generationTileType.generate(randomNeighbour.row, randomNeighbour.column));
                 removeWallBetween(grid, current, randomNeighbour);
                 current = randomNeighbour;
                 stack.push(randomNeighbour);
@@ -92,6 +95,6 @@ public class BacktrackingStrategy extends MazeGenerationStrategy {
         if (tile.getType() == TileType.Room) {
             return;
         }
-        tile.setType(TileType.Pavement);
+        tile.setType(generationTileType.generate(i, j));
     }
 }
