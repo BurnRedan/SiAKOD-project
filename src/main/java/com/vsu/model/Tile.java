@@ -1,5 +1,6 @@
 package com.vsu.model;
 
+import com.vsu.AI.Entity;
 import com.vsu.service.grid.GridTopology;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -23,6 +24,10 @@ public class Tile {
     boolean isRoot;
     @Getter @Setter
     boolean isDest;
+    @Getter @Setter
+    @EqualsAndHashCode.Exclude Entity entity;
+
+    
 
     public Tile(int row, int col, GridTopology archetype, int weight) {
         this.row = row;
@@ -31,6 +36,7 @@ public class Tile {
         type = TileType.Pavement;
         this.weight = weight;
         isPath = false;
+        entity = null;
     }
 
     public Tile north(Grid grid) {

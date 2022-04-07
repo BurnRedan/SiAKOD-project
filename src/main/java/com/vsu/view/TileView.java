@@ -42,7 +42,7 @@ public class TileView {
         stackPane = new StackPane();
         stackPane.getChildren().add(rectangle);
         stackPane.setTranslateY(tile.row * size);
-        stackPane.setTranslateX(tile.col * size);
+        stackPane.setTranslateX(tile.column * size);
 
         isClicked = false;
 
@@ -65,7 +65,7 @@ public class TileView {
         stackPane = new StackPane();
         stackPane.getChildren().add(rectangle);
         stackPane.setTranslateY(tile.row * size);
-        stackPane.setTranslateX(tile.col * size);
+        stackPane.setTranslateX(tile.column * size);
 
         setEvents();
     }
@@ -86,21 +86,21 @@ public class TileView {
                 if (tile.getType() == TileType.Wall) {
                     return;
                 }
-                if (!(gridView.getPathSource() == null)) {
-                    gridView.getPathSource().setColorEvent(ViewConfig.getINSTANCE()
-                            .getTileTypeColorMap().get(tile.getType()));
+                if (!(gridView.getRoot() == null)) {
+                    gridView.getRoot().setColorEvent(ViewConfig.getINSTANCE()
+                            .getTileViewTypeColorMap().get(TileViewType.Ordinary));
                 }
-                gridView.setPathSource(this);
+                gridView.setRoot(this);
                 setColorEvent(ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Source));
             } else if (tilePickerChoice.equals(TileViewType.Destination.toString())) {
                 if (tile.getType() == TileType.Wall) {
                     return;
                 }
-                if (!(gridView.getPathDestination() == null)) {
-                    gridView.getPathDestination().setColorEvent(ViewConfig.getINSTANCE()
+                if (!(gridView.getTarget() == null)) {
+                    gridView.getTarget().setColorEvent(ViewConfig.getINSTANCE()
                             .getTileViewTypeColorMap().get(TileViewType.Ordinary));
                 }
-                gridView.setPathDestination(this);
+                gridView.setTarget(this);
                 setColorEvent(ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Destination));
             }
         });
@@ -123,7 +123,7 @@ public class TileView {
         rectangle.resize(size - ViewConfig.getINSTANCE().getTileGap(),
                 size - ViewConfig.getINSTANCE().getTileGap());
         stackPane.setTranslateY(tile.row * size);
-        stackPane.setTranslateX(tile.col * size);
+        stackPane.setTranslateX(tile.column * size);
         if (!isClicked) {
             rectangle.setFill(ViewConfig.getINSTANCE().getTileTypeColorMap().get(tile.getType()));
         }
