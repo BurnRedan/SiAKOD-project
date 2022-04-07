@@ -1,9 +1,8 @@
 package com.vsu.model;
 
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 
-import static com.vsu.model.Direction2D.*;
+import static com.vsu.maze_generation.dungeon.Direction2D.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class Direction2DTest {

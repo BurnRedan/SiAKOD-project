@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
-import static com.vsu.model.Direction2D.*;
+import static com.vsu.maze_generation.dungeon.Direction2D.*;
 
 public class RoomGenerator extends RandomWalk {
 

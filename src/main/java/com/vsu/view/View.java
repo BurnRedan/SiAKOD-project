@@ -48,6 +48,8 @@ public class View implements PropertyChangeListener {
     ComboBox<PathfindingAlgorithms> pathfindingAlgorithmsComboBox;
     ComboBox<TileViewType> tileViewTypeComboBox;
 
+    ViewController viewController;
+
     public View(GridView model) {
         this.model = model;
         parentGridPane = new Pane();
@@ -69,7 +71,7 @@ public class View implements PropertyChangeListener {
         findPathButton = new Button("Find path");
 
         Label tileTypeLabel = new Label("Tile picker");
-        tileViewTypeComboBox = new ComboBox<>((FXCollections.observableArrayList(TileViewType.Root, TileViewType.Dest)));
+        tileViewTypeComboBox = new ComboBox<>((FXCollections.observableArrayList(TileViewType.Source, TileViewType.Destination)));
         tileViewTypeComboBox.getSelectionModel().selectFirst();
         Label mazeGenLabel = new Label("Maze generation algorithm");
         mazeGenAlgorithmsComboBox = new ComboBox<>(FXCollections.observableArrayList(MazeGenAlgorithms.values()));
@@ -85,6 +87,8 @@ public class View implements PropertyChangeListener {
                 mazeGenLabel, mazeGenAlgorithmsComboBox, pathfindingLabel, pathfindingAlgorithmsComboBox, findPathButton,
                 tileTypeLabel, tileViewTypeComboBox);
         scene = new Scene(initComponents(), WIDTH, HEIGHT);
+
+        viewController = new ViewController();
     }
 
     private SplitPane initComponents() {
@@ -99,7 +103,7 @@ public class View implements PropertyChangeListener {
         return splitPane;
     }
 
-    public void setTriggers(ViewController viewController) {
+    public void setTriggers() {
 
         clearButton.setOnAction(event -> {
             viewController.clearGrid(model.getGrid());
@@ -131,12 +135,11 @@ public class View implements PropertyChangeListener {
                         int size = defaultTileSize;
                         resetGrid(model);
                         repaintGrid(model.getGrid(), size);
-                        viewController
-                                .getPath(
+                        viewController.getPath(
                                         item,
                                         model.getGrid(),
-                                        model.getRoot().getTile(),
-                                        model.getTarget().getTile()
+                                        model.getPathSource().getTile(),
+                                        model.getPathDestination().getTile()
                                 );
                         repaintGrid(model.getGrid(), size);
                     }
@@ -168,10 +171,10 @@ public class View implements PropertyChangeListener {
                 TileView tileView;
                 if (tile.isRoot()) {
                     tileView = new TileView(tile, tileSize,
-                            ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Root), this, model);
+                            ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Source), this, model);
                 } else if (tile.isDest()) {
                     tileView = new TileView(tile, tileSize,
-                            ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Dest), this, model);
+                            ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Destination), this, model);
                 } else if (tile.isPath()) {
                     tileView = new TileView(tile, tileSize,
                             ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Path), this, model);
@@ -204,8 +207,8 @@ public class View implements PropertyChangeListener {
                 Tile tile = grid.getMatrix()[i][j];
                 tileView.setTile(tile, size);
 
-                if (tile.isPath() && !model.getRoot().getTile().equals(tile) &&
-                        !model.getTarget().getTile().equals(tile)) {
+                if (tile.isPath() && !model.getPathSource().getTile().equals(tile) &&
+                        !model.getPathDestination().getTile().equals(tile)) {
 
                     model.getMatrix()[i][j]
                             .setColor(ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Path));
@@ -221,8 +224,8 @@ public class View implements PropertyChangeListener {
     private void resetGrid(GridView model) {
         for (TileView[] row : model.getMatrix()) {
             for (TileView tile : row) {
-                if (!tile.getTile().equals(model.getRoot().getTile()) &&
-                        !tile.getTile().equals(model.getTarget().getTile())) {
+                if (!tile.getTile().equals(model.getPathSource().getTile()) &&
+                        !tile.getTile().equals(model.getPathDestination().getTile())) {
                     tile.setColor(ViewConfig.getINSTANCE().getTileTypeColorMap().get(tile.getTile().getType()));
                     tile.getTile().setPath(false);
                 }

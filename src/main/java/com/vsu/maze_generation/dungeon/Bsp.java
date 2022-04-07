@@ -2,7 +2,7 @@ package com.vsu.maze_generation.dungeon;
 
 import java.util.*;
 
-import static com.vsu.model.Direction2D.*;
+import static com.vsu.maze_generation.dungeon.Direction2D.*;
 
 public class Bsp {
 

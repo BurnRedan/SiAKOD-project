@@ -7,16 +7,14 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 public class Grid {
-    @NonNull
     @Setter
     int rowSize;
-    @NonNull
     @Setter
     int colSize;
 
     Tile[][] matrix;
 
-    public Grid(@NonNull int rowSize, @NonNull int colSize) {
+    public Grid(int rowSize, int colSize) {
         this.rowSize = rowSize;
         this.colSize = colSize;
         matrix = new Tile[rowSize][colSize];

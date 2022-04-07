@@ -82,26 +82,26 @@ public class TileView {
         stackPane.setOnMouseClicked(e -> {
             isClicked = true;
             String tilePickerChoice = view.tileViewTypeComboBox.getValue().toString();
-            if (tilePickerChoice.equals(TileViewType.Root.toString())) {
+            if (tilePickerChoice.equals(TileViewType.Source.toString())) {
                 if (tile.getType() == TileType.Wall) {
                     return;
                 }
-                if (!(gridView.getRoot() == null)) {
-                    gridView.getRoot().setColorEvent(ViewConfig.getINSTANCE()
+                if (!(gridView.getPathSource() == null)) {
+                    gridView.getPathSource().setColorEvent(ViewConfig.getINSTANCE()
                             .getTileViewTypeColorMap().get(TileViewType.Ordinary));
                 }
-                gridView.setRoot(this);
-                setColorEvent(ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Root));
-            } else if (tilePickerChoice.equals(TileViewType.Dest.toString())) {
+                gridView.setPathSource(this);
+                setColorEvent(ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Source));
+            } else if (tilePickerChoice.equals(TileViewType.Destination.toString())) {
                 if (tile.getType() == TileType.Wall) {
                     return;
                 }
-                if (!(gridView.getTarget() == null)) {
-                    gridView.getTarget().setColorEvent(ViewConfig.getINSTANCE()
+                if (!(gridView.getPathDestination() == null)) {
+                    gridView.getPathDestination().setColorEvent(ViewConfig.getINSTANCE()
                             .getTileViewTypeColorMap().get(TileViewType.Ordinary));
                 }
-                gridView.setTarget(this);
-                setColorEvent(ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Dest));
+                gridView.setPathDestination(this);
+                setColorEvent(ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Destination));
             }
         });
     }
