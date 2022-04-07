@@ -1,6 +1,4 @@
-package com.vsu.factory;
-
-import com.vsu.maze_generation.*;
+package com.vsu.maze_generation;
 
 import java.util.ArrayList;
 import java.util.List;

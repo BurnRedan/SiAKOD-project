@@ -15,7 +15,6 @@ public abstract class PathfindingStrategy {
 
     public abstract List<Tile> findPath(Grid grid, Tile source, Tile destination);
 
-    //TODO: optimize
     protected List<Tile> getNeighbours(Grid grid, Tile tile) {
         Tile tmp;
         List<Tile> neighbours = new ArrayList<>();

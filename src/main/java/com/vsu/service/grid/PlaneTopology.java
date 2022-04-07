@@ -1,6 +1,6 @@
 package com.vsu.service.grid;
 
-import com.vsu.factory.LandGenFactory;
+import com.vsu.landscape.LandGenFactory;
 import com.vsu.landscape.LandGenStrategy;
 import com.vsu.landscape.LandGenType;
 import com.vsu.model.Grid;

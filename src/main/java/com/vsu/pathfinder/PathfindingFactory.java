@@ -1,9 +1,4 @@
-package com.vsu.factory;
-
-import com.vsu.pathfinder.AStarStrategy;
-import com.vsu.pathfinder.DijkstraStrategy;
-import com.vsu.pathfinder.PathfindingAlgorithms;
-import com.vsu.pathfinder.PathfindingStrategy;
+package com.vsu.pathfinder;
 
 import java.util.ArrayList;
 import java.util.List;

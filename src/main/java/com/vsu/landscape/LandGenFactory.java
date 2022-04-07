@@ -1,8 +1,4 @@
-package com.vsu.factory;
-
-import com.vsu.landscape.LandGenStrategy;
-import com.vsu.landscape.LandGenType;
-import com.vsu.landscape.RandomLandGenStrategy;
+package com.vsu.landscape;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,14 +1,10 @@
 package com.vsu.view;
 
 import com.vsu.model.Grid;
-import com.vsu.model.Tile;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 @Getter
 @Setter
@@ -23,7 +19,6 @@ public class GridView {
     public GridView(Grid grid) {
         root = null;
         this.grid = grid;
-        //matrix = new TileView[getGrid().getRowSize()][grid.getColSize()];
     }
 
     public void setGrid() {

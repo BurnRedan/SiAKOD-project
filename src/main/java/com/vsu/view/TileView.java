@@ -19,11 +19,11 @@ public class TileView {
     Tile tile;
     int size;
     public Color color;
-    Rectangle rectangle;
-    StackPane stackPane;
-    PropertyChangeSupport support;
-    View view;
-    GridView gridView;
+    final Rectangle rectangle;
+    final StackPane stackPane;
+    final PropertyChangeSupport support;
+    final View view;
+    final GridView gridView;
     boolean isClicked;
 
     public TileView(Tile tile, int size, View view, GridView gridView) {
@@ -33,10 +33,10 @@ public class TileView {
         this.view = view;
         this.gridView = gridView;
 
-        color = ViewConfig.getInstance().getTileTypeColorMap().get(tile.getType());
-        rectangle = new Rectangle(size - ViewConfig.getInstance().getTileGap(),
-                size - ViewConfig.getInstance().getTileGap());
-        rectangle.setFill(ViewConfig.getInstance().getTileTypeColorMap().get(tile.getType()));
+        color = ViewConfig.getINSTANCE().getTileTypeColorMap().get(tile.getType());
+        rectangle = new Rectangle(size - ViewConfig.getINSTANCE().getTileGap(),
+                size - ViewConfig.getINSTANCE().getTileGap());
+        rectangle.setFill(ViewConfig.getINSTANCE().getTileTypeColorMap().get(tile.getType()));
         setTileStroke(false);
 
         stackPane = new StackPane();
@@ -57,9 +57,9 @@ public class TileView {
         this.view = view;
         this.gridView = gridView;
 
-        rectangle = new Rectangle(size - ViewConfig.getInstance().getTileGap(),
-                size - ViewConfig.getInstance().getTileGap());
-        rectangle.setFill(ViewConfig.getInstance().getTileTypeColorMap().get(tile.getType()));
+        rectangle = new Rectangle(size - ViewConfig.getINSTANCE().getTileGap(),
+                size - ViewConfig.getINSTANCE().getTileGap());
+        rectangle.setFill(ViewConfig.getINSTANCE().getTileTypeColorMap().get(tile.getType()));
         setTileStroke(false);
 
         stackPane = new StackPane();
@@ -80,27 +80,28 @@ public class TileView {
 
     private void setEvents() {
         stackPane.setOnMouseClicked(e -> {
-            //TODO: maybe make fabric
             isClicked = true;
-            String val = view.tileViewTypeComboBox.getValue().toString();
-            if (val.equals(TileViewType.Ordinary.toString())) {
-                setColorEvent(ViewConfig.getInstance().getTileTypeColorMap().get(TileType.Pavement));
-            } else if (val.equals(TileViewType.Path.toString())) {
-                setColorEvent(ViewConfig.getInstance().getTileViewTypeColorMap().get(TileViewType.Path));
-            } else if (val.equals(TileViewType.Root.toString())) {
-                if (!(gridView.getRoot() == null && tile.getType() != TileType.Wall)) {
-                    gridView.getRoot().setColorEvent(ViewConfig.getInstance()
+            String tilePickerChoice = view.tileViewTypeComboBox.getValue().toString();
+            if (tilePickerChoice.equals(TileViewType.Root.toString())) {
+                if (tile.getType() == TileType.Wall) {
+                    return;
+                }
+                if (!(gridView.getRoot() == null)) {
+                    gridView.getRoot().setColorEvent(ViewConfig.getINSTANCE()
                             .getTileViewTypeColorMap().get(TileViewType.Ordinary));
                 }
                 gridView.setRoot(this);
-                setColorEvent(ViewConfig.getInstance().getTileViewTypeColorMap().get(TileViewType.Root));
-            } else if (val.equals(TileViewType.Dest.toString())) {
-                if (!(gridView.getTarget() == null && tile.getType() != TileType.Wall)) {
-                    gridView.getTarget().setColorEvent(ViewConfig.getInstance()
+                setColorEvent(ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Root));
+            } else if (tilePickerChoice.equals(TileViewType.Dest.toString())) {
+                if (tile.getType() == TileType.Wall) {
+                    return;
+                }
+                if (!(gridView.getTarget() == null)) {
+                    gridView.getTarget().setColorEvent(ViewConfig.getINSTANCE()
                             .getTileViewTypeColorMap().get(TileViewType.Ordinary));
                 }
                 gridView.setTarget(this);
-                setColorEvent(ViewConfig.getInstance().getTileViewTypeColorMap().get(TileViewType.Dest));
+                setColorEvent(ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Dest));
             }
         });
     }
@@ -119,12 +120,12 @@ public class TileView {
     public void setTile(Tile tile, int size) {
         this.tile = tile;
         this.size = size;
-        rectangle.resize(size - ViewConfig.getInstance().getTileGap(),
-                size - ViewConfig.getInstance().getTileGap());
+        rectangle.resize(size - ViewConfig.getINSTANCE().getTileGap(),
+                size - ViewConfig.getINSTANCE().getTileGap());
         stackPane.setTranslateY(tile.row * size);
         stackPane.setTranslateX(tile.column * size);
         if (!isClicked) {
-            rectangle.setFill(ViewConfig.getInstance().getTileTypeColorMap().get(tile.getType()));
+            rectangle.setFill(ViewConfig.getINSTANCE().getTileTypeColorMap().get(tile.getType()));
         }
     }
 

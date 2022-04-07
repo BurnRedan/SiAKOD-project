@@ -1,15 +1,13 @@
 package com.vsu.maze_generation.dungeon;
 
-import com.vsu.model.Direction2D;
-
 import java.util.*;
 
 import static com.vsu.model.Direction2D.*;
 
-public class ProceduralGenAlgorithms {
+public class Bsp {
 
     //TODO: почему то может вернуть пустой список
-    public static List<BoundingBox> bsp(BoundingBox spaceToSplit, int minWidth, int minHeight) {
+    public List<BoundingBox> runBsp(BoundingBox spaceToSplit, int minWidth, int minHeight) {
         Queue<BoundingBox> roomsQueue = new LinkedList<>();
         List<BoundingBox> roomsList = new ArrayList<>();
         roomsQueue.add(spaceToSplit);
@@ -39,7 +37,6 @@ public class ProceduralGenAlgorithms {
         return roomsList;
     }
 
-    //TODO: test
     private static void splitVertically(Queue<BoundingBox> roomsQueue, BoundingBox room) {
         int xSplit = new Random().nextInt(room.width) + 1;
         BoundingBox room1 = new BoundingBox(xSplit, room.height, room.startPoint);

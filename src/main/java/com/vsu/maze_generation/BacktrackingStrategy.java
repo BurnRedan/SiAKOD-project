@@ -49,7 +49,6 @@ public class BacktrackingStrategy extends MazeGenerationStrategy {
         }
     }
 
-
     private void getNeighbours(Grid grid, Tile current, List<Tile> neighbours) {
         neighbours.clear();
         Tile tmp;
