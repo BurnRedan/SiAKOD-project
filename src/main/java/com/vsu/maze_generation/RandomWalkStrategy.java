@@ -7,7 +7,7 @@ import com.vsu.service.GridService;
 
 import java.util.HashSet;
 
-import static com.vsu.model.Direction2D.*;
+import static com.vsu.maze_generation.dungeon.Direction2D.*;
 
 public class RandomWalkStrategy extends MazeGenerationStrategy {
 

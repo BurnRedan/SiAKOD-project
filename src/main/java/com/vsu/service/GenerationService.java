@@ -1,9 +1,6 @@
 package com.vsu.service;
 
-import com.vsu.model.Grid;
-import com.vsu.model.Tile;
-
-import static com.vsu.model.Direction2D.*;
+import static com.vsu.maze_generation.dungeon.Direction2D.*;
 
 public class GenerationService {
     public static Position getVector2ByDirection(Position pos, Position direction, int rowCount, int colCount) {

@@ -1,8 +1,6 @@
-package com.vsu.model;
+package com.vsu.maze_generation.dungeon;
 
-import javafx.geometry.Pos;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 import java.util.Random;

@@ -4,7 +4,6 @@ import com.vsu.model.TileType;
 import javafx.scene.paint.Color;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,9 +30,9 @@ public class ViewConfig {
 
         tileViewTypeColorMap = new HashMap<>();
         tileViewTypeColorMap.put(TileViewType.Ordinary, tileTypeColorMap.get(TileType.Pavement));
-        tileViewTypeColorMap.put(TileViewType.Root, Color.OLIVE);
+        tileViewTypeColorMap.put(TileViewType.Source, Color.OLIVE);
         tileViewTypeColorMap.put(TileViewType.Path, Color.BISQUE);
-        tileViewTypeColorMap.put(TileViewType.Dest, Color.SALMON);
+        tileViewTypeColorMap.put(TileViewType.Destination, Color.SALMON);
 
         this.tileGap = tileGap;
     }

@@ -12,12 +12,12 @@ import lombok.experimental.FieldDefaults;
 public class GridView {
 
     Grid grid;
-    TileView root;
-    TileView target;
+    TileView pathSource;
+    TileView pathDestination;
     TileView[][] matrix;
 
     public GridView(Grid grid) {
-        root = null;
+        pathSource = null;
         this.grid = grid;
     }
 

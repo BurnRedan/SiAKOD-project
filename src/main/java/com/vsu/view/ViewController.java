@@ -16,11 +16,6 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ViewController {
 
-    public ViewController(View view) {
-        view.createGrid();
-        view.setTriggers(this);
-    }
-
     public void generateMaze(MazeGenAlgorithms algorithm, Grid grid) {
         MazeGenerationFactory mazeGenerationFactory = new MazeGenerationFactory();
         MazeGenerationStrategy strategy = mazeGenerationFactory.getStrategy(algorithm);
