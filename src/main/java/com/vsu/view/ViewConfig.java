@@ -2,26 +2,25 @@ package com.vsu.view;
 
 import com.vsu.model.TileType;
 import javafx.scene.paint.Color;
-import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 
 import java.util.HashMap;
 import java.util.Map;
 
-//TODO: review
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Getter
 public class ViewConfig {
 
     @Getter
-    private static final ViewConfig instance = new ViewConfig();
+    private static final ViewConfig INSTANCE = new ViewConfig(0);
 
-    final Map<TileType, Color> tileTypeColorMap;
-    final Map<TileViewType, Color> tileViewTypeColorMap;
+    Map<TileType, Color> tileTypeColorMap;
+    Map<TileViewType, Color> tileViewTypeColorMap;
     double tileGap;
 
-    private ViewConfig() {
+    private ViewConfig(int tileGap) {
         tileTypeColorMap = new HashMap<>();
         tileTypeColorMap.put(TileType.Forest, Color.GREENYELLOW);
         tileTypeColorMap.put(TileType.Swamp, Color.DARKGREEN);
@@ -35,5 +34,7 @@ public class ViewConfig {
         tileViewTypeColorMap.put(TileViewType.Root, Color.OLIVE);
         tileViewTypeColorMap.put(TileViewType.Path, Color.BISQUE);
         tileViewTypeColorMap.put(TileViewType.Dest, Color.SALMON);
+
+        this.tileGap = tileGap;
     }
 }

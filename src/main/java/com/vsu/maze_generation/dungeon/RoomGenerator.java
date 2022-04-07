@@ -1,7 +1,6 @@
 package com.vsu.maze_generation.dungeon;
 
-import com.vsu.maze_generation.dungeon.parameters.Parameters;
-import com.vsu.model.Grid;
+import com.vsu.maze_generation.dungeon.parameters.DungeonGenParameters;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,16 +13,15 @@ public class RoomGenerator extends RandomWalk {
 
     int dungeonWidth, dungeonHeight;
 
-    public RoomGenerator(Position startPos, int rowCount, int colCount, Parameters parameters) {
+    public RoomGenerator(Position startPos, int rowCount, int colCount, DungeonGenParameters parameters) {
         super(startPos, rowCount, colCount, parameters);
         dungeonWidth = colCount;
         dungeonHeight = rowCount;
         this.parameters = parameters;
     }
 
-    //TODO: bsp может вернуть пустой список
     public HashSet<Position> createRooms() {
-        List<BoundingBox> roomsList = ProceduralGenAlgorithms.bsp(new BoundingBox(dungeonWidth, dungeonHeight, startPos),
+        List<BoundingBox> roomsList = new Bsp().runBsp(new BoundingBox(dungeonWidth, dungeonHeight, startPos),
                 parameters.minRoomWidth, parameters.minRoomHeight);
         HashSet<Position> floor = parameters.randomWalkRooms ?
                 createRoomsRandomly(roomsList) : createSimpleRooms(roomsList);
@@ -116,7 +114,6 @@ public class RoomGenerator extends RandomWalk {
         while (pos.row != destination.row) {
             if (destination.row > pos.row) {
                 pos = pos.add(Position.down);
-                //TODO: возможно лучше убрать в функцию проверки
                 if (pos.row < 0)
                     pos.row = 0;
             } else {

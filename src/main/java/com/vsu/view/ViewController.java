@@ -1,13 +1,12 @@
 package com.vsu.view;
 
-import com.vsu.factory.MazeGenerationFactory;
-import com.vsu.factory.PathfindingFactory;
+import com.vsu.maze_generation.MazeGenerationFactory;
+import com.vsu.pathfinder.PathfindingFactory;
 import com.vsu.maze_generation.MazeGenAlgorithms;
 import com.vsu.maze_generation.MazeGenerationStrategy;
 import com.vsu.model.Grid;
 import com.vsu.model.Tile;
 import com.vsu.pathfinder.PathfindingAlgorithms;
-import com.vsu.pathfinder.PathfindingStrategy;
 import com.vsu.service.GridService;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;

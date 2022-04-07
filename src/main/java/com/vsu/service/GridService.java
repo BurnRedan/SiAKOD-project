@@ -6,7 +6,9 @@ import com.vsu.model.Tile;
 import com.vsu.model.TileType;
 import com.vsu.service.grid.GridTopology;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import static com.vsu.model.Direction2D.*;
 
@@ -17,7 +19,6 @@ public class GridService {
     }
 
     public void generateMaze(Grid grid, MazeGenerationStrategy strategy) {
-        //TODO: делать генерацию не сразу, а сначала делать разметку, потом вызвать метод apply(List<Vector2>)
         strategy.generate(grid);
     }
 
@@ -44,12 +45,35 @@ public class GridService {
         }
     }
 
-    //TODO: может вылететь с ошибкой из-за выхода за границы
     public void genMazeByLayout(Grid grid, HashSet<Position> layout) {
         int i = 0;
         for (Position pos : layout) {
             i++;
             grid.getMatrix()[pos.row][pos.col].setType(TileType.Pavement);
         }
+    }
+
+    public List<Tile> getNeighbours(Grid grid, Tile tile) {
+        Tile tmp;
+        List<Tile> neighbours = new ArrayList<>();
+
+        tmp = tile.north(grid);
+        if (tmp != null) {
+            neighbours.add(tmp);
+        }
+        tmp = tile.south(grid);
+        if (tmp != null) {
+            neighbours.add(tmp);
+        }
+        tmp = tile.west(grid);
+        if (tmp != null) {
+            neighbours.add(tmp);
+        }
+        tmp = tile.east(grid);
+        if (tmp != null) {
+            neighbours.add(tmp);
+        }
+
+        return neighbours;
     }
 }

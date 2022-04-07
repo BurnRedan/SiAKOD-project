@@ -1,9 +1,6 @@
 package com.vsu.maze_generation.dungeon;
 
-import com.vsu.maze_generation.dungeon.parameters.Parameters;
-import com.vsu.model.Grid;
-import com.vsu.model.Tile;
-import com.vsu.model.TileType;
+import com.vsu.maze_generation.dungeon.parameters.DungeonGenParameters;
 import com.vsu.service.GenerationService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -18,12 +15,12 @@ import static com.vsu.model.Direction2D.*;
 @FieldDefaults(level = AccessLevel.PROTECTED)
 public class RandomWalk {
 
-    Parameters parameters;
+    DungeonGenParameters parameters;
     Position startPos;
     int rowCount;
     int colCount;
 
-    public RandomWalk(Position startPos, int rowCount, int colCount, Parameters parameters) {
+    public RandomWalk(Position startPos, int rowCount, int colCount, DungeonGenParameters parameters) {
         this.startPos = startPos;
         this.rowCount = rowCount;
         this.colCount = colCount;
@@ -70,33 +67,4 @@ public class RandomWalk {
         return path;
     }
 
-
-    //TODO: возможно удалить
-    public HashSet<Tile> runRandomWalk(Grid grid) {
-        Tile curTile = grid.getMatrix()[startPos.row][startPos.col];
-        HashSet<Tile> floor = new HashSet<>();
-        for (int i = 0; i < parameters.iterations; i++) {
-            assert curTile != null;
-            HashSet<Tile> path = runRandomWalkIteration(grid, new Position(curTile.row, curTile.column));
-            floor.addAll(path);
-            if (parameters.startRandomlyEachIteration)
-                curTile = getRandomItemFromSet(floor);
-        }
-
-        return floor;
-    }
-
-    //TODO: возможно удалить
-    public HashSet<Tile> runRandomWalkIteration(Grid grid, Position pos) {
-        HashSet<Tile> path = new HashSet<>();
-        Tile prevTile = grid.getMatrix()[pos.row][pos.col];
-        path.add(prevTile);
-        for (int i = 0; i < parameters.walkLength; i++) {
-            Tile newTile = GenerationService.getTileByDirection(grid, prevTile, getRandomDirection());
-            newTile.setType(TileType.Pavement);
-            path.add(newTile);
-            prevTile = newTile;
-        }
-        return path;
-    }
 }

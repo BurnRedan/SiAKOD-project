@@ -2,7 +2,8 @@ package com.vsu.pathfinder;
 
 import com.vsu.model.Grid;
 import com.vsu.model.Tile;
-import com.vsu.policy.PassagePolicyFactory;
+import com.vsu.model.TileType;
+import com.vsu.policy.PassagePolicy;
 import lombok.*;
 
 import java.util.*;
@@ -49,7 +50,9 @@ public class DijkstraStrategy extends PathfindingStrategy {
                     dist.put(tile, Integer.MAX_VALUE);
                     pq.add(new Node(tile, Integer.MAX_VALUE));
                 }
-                prev.put(tile, null);
+
+                if (tile.getType() != TileType.Wall)
+                    prev.put(tile, null);
             }
         }
 
@@ -72,7 +75,7 @@ public class DijkstraStrategy extends PathfindingStrategy {
 
             List<Node> neighbours = neighbours(grid, node.tile);
             for (Node neighbour : neighbours) {
-                Integer alt = new PassagePolicyFactory().getDistance(node.tile, neighbour.tile);
+                Integer alt = new PassagePolicy().getDistance(node.tile, neighbour.tile);
                 if (alt < dist.get(neighbour.tile)) {
                     dist.put(neighbour.tile, alt);
                     if (!visited.contains(neighbour.tile)) {
@@ -91,7 +94,7 @@ public class DijkstraStrategy extends PathfindingStrategy {
                 }
             }
         }
-        return new ArrayList<>(dist.keySet());
+        return new ArrayList<>();
     }
 
     private List<Node> neighbours(Grid grid, Tile tile) {

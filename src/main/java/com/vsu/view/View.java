@@ -13,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import lombok.Getter;
 
 import java.beans.PropertyChangeEvent;
@@ -29,14 +28,10 @@ public class View implements PropertyChangeListener {
     @Getter
     Scene scene;
 
-    TextField txtXTiles;
-    TextField txtYTiles;
-    TextField txtTileSize;
-
     int padding = 2;
-    String defaultRowSize = "60";
-    String defaultColSize = "60";
-    String defaultTileSize = "12";
+    int defaultRowCount = 70;
+    int defaultColCount = 110;
+    int defaultTileSize = 10;
     double leftPanelSize = 0.2;
 
     VBox leftPane;
@@ -46,7 +41,6 @@ public class View implements PropertyChangeListener {
     Button genMazeButton;
     Button clearButton;
     Button findPathButton;
-    Button recreateGridButton;
 
     CheckBox setTileStrokeCheckBox;
 
@@ -66,15 +60,6 @@ public class View implements PropertyChangeListener {
         GridPane createPane = new GridPane();
         createPane.setHgap(5);
         createPane.setPadding(new Insets(padding, padding, padding, padding));
-        createPane.add(new Text("Row: "), 0, 0);
-        txtXTiles = new TextField(defaultRowSize);
-        createPane.add(txtXTiles, 1, 0);
-        createPane.add(new Text("Col: "), 2, 0);
-        txtYTiles = new TextField(defaultColSize);
-        createPane.add(txtYTiles, 3, 0);
-        createPane.add(new Text("Size: "), 4, 0);
-        txtTileSize = new TextField(defaultTileSize);
-        createPane.add(txtTileSize, 5, 0);
 
         setTileStrokeCheckBox = new CheckBox("Tile border");
         setTileStrokeCheckBox.setSelected(false);
@@ -82,10 +67,9 @@ public class View implements PropertyChangeListener {
         genMazeButton = new Button("Generate maze");
         clearButton = new Button("Clear");
         findPathButton = new Button("Find path");
-        recreateGridButton = new Button("Recreate grid");
 
         Label tileTypeLabel = new Label("Tile picker");
-        tileViewTypeComboBox = new ComboBox<>(FXCollections.observableArrayList(TileViewType.values()));
+        tileViewTypeComboBox = new ComboBox<>((FXCollections.observableArrayList(TileViewType.Root, TileViewType.Dest)));
         tileViewTypeComboBox.getSelectionModel().selectFirst();
         Label mazeGenLabel = new Label("Maze generation algorithm");
         mazeGenAlgorithmsComboBox = new ComboBox<>(FXCollections.observableArrayList(MazeGenAlgorithms.values()));
@@ -97,7 +81,7 @@ public class View implements PropertyChangeListener {
         setTileStrokeCheckBox = new CheckBox("Tile border");
         setTileStrokeCheckBox.setSelected(false);
 
-        leftPane.getChildren().addAll(createPane, setTileStrokeCheckBox, genMazeButton, clearButton, recreateGridButton,
+        leftPane.getChildren().addAll(createPane, setTileStrokeCheckBox, genMazeButton, clearButton,
                 mazeGenLabel, mazeGenAlgorithmsComboBox, pathfindingLabel, pathfindingAlgorithmsComboBox, findPathButton,
                 tileTypeLabel, tileViewTypeComboBox);
         scene = new Scene(initComponents(), WIDTH, HEIGHT);
@@ -119,59 +103,52 @@ public class View implements PropertyChangeListener {
 
         clearButton.setOnAction(event -> {
             viewController.clearGrid(model.getGrid());
-            int size = Integer.parseInt(txtTileSize.getText());
+            int size = defaultTileSize;
             initGridView(model.getGrid(), size);
             repaintGrid(model.getGrid(), size);
         });
 
-        genMazeButton.setOnAction(event -> {
-            FXCollections.observableArrayList(MazeGenAlgorithms.values())
-                    .stream()
-                    .filter(item -> mazeGenAlgorithmsComboBox.getValue().toString().equals(item.toString()))
-                    .forEachOrdered(item -> {
-                        if (gridPane != null) {
-                            viewController.clearGrid(model.getGrid());
-                            viewController.generateMaze(item, model.getGrid());
-                            int size = Integer.parseInt(txtTileSize.getText());
-                            initGridView(model.getGrid(), size);
-                            repaintGrid(model.getGrid(), size);
-                        }
-                    });
-        });
+        genMazeButton.setOnAction(event ->
+                FXCollections.observableArrayList(MazeGenAlgorithms.values())
+                .stream()
+                .filter(item -> mazeGenAlgorithmsComboBox.getValue().toString().equals(item.toString()))
+                .forEachOrdered(item -> {
+                    if (gridPane != null) {
+                        viewController.clearGrid(model.getGrid());
+                        viewController.generateMaze(item, model.getGrid());
+                        int size = defaultTileSize;
+                        initGridView(model.getGrid(), size);
+                        repaintGrid(model.getGrid(), size);
+                    }
+                }));
 
-        //TODO: debug double click
-        findPathButton.setOnAction(event -> {
-            FXCollections.observableArrayList(PathfindingAlgorithms.values())
-                    .stream()
-                    .filter(item -> pathfindingAlgorithmsComboBox.getValue().toString().equals(item.toString()))
-                    .forEachOrdered(item -> {
-                        if (gridPane != null) {
-                            int size = Integer.parseInt(txtTileSize.getText());
-                            resetGrid(model);
-                            repaintGrid(model.getGrid(), size);
-                            viewController
-                                    .getPath(
-                                            item,
-                                            model.getGrid(),
-                                            model.getRoot().getTile(),
-                                            model.getTarget().getTile()
-                                    );
-                            repaintGrid(model.getGrid(), size);
-                        }
-                    });
-        });
-
-        recreateGridButton.setOnAction(event -> {
-            createGrid();
-        });
+        findPathButton.setOnAction(event ->
+                FXCollections.observableArrayList(PathfindingAlgorithms.values())
+                .stream()
+                .filter(item -> pathfindingAlgorithmsComboBox.getValue().toString().equals(item.toString()))
+                .forEachOrdered(item -> {
+                    if (gridPane != null) {
+                        int size = defaultTileSize;
+                        resetGrid(model);
+                        repaintGrid(model.getGrid(), size);
+                        viewController
+                                .getPath(
+                                        item,
+                                        model.getGrid(),
+                                        model.getRoot().getTile(),
+                                        model.getTarget().getTile()
+                                );
+                        repaintGrid(model.getGrid(), size);
+                    }
+                }));
     }
 
     public void createGrid() {
-        int rowCount = Integer.parseInt(txtXTiles.getText());
+        int rowCount = defaultRowCount;
         rowCount = rowCount % 2 == 0 ? rowCount - 1 : rowCount;
-        int colCount = Integer.parseInt(txtYTiles.getText());
+        int colCount = defaultColCount;
         colCount = colCount % 2 == 0 ? colCount - 1 : colCount;
-        int size = Integer.parseInt(txtTileSize.getText());
+        int size = defaultTileSize;
         GridService gridService = new GridService();
         gridService.initGrid(model.getGrid(), rowCount, colCount, new PlaneTopology());
         initGridView(model.getGrid(), size);
@@ -191,13 +168,13 @@ public class View implements PropertyChangeListener {
                 TileView tileView;
                 if (tile.isRoot()) {
                     tileView = new TileView(tile, tileSize,
-                            ViewConfig.getInstance().getTileViewTypeColorMap().get(TileViewType.Root), this, model);
+                            ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Root), this, model);
                 } else if (tile.isDest()) {
                     tileView = new TileView(tile, tileSize,
-                            ViewConfig.getInstance().getTileViewTypeColorMap().get(TileViewType.Dest), this, model);
+                            ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Dest), this, model);
                 } else if (tile.isPath()) {
                     tileView = new TileView(tile, tileSize,
-                            ViewConfig.getInstance().getTileViewTypeColorMap().get(TileViewType.Path), this, model);
+                            ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Path), this, model);
                 } else {
                     tileView = new TileView(tile, tileSize, this, model);
                 }
@@ -215,7 +192,6 @@ public class View implements PropertyChangeListener {
         parentGridPane.getChildren().add(gridPane);
     }
 
-    //TODO: debug size change
     private void repaintGrid(Grid grid, int size) {
         parentGridPane.getChildren().remove(gridPane);
         gridPane = new Pane();
@@ -232,7 +208,7 @@ public class View implements PropertyChangeListener {
                         !model.getTarget().getTile().equals(tile)) {
 
                     model.getMatrix()[i][j]
-                            .setColor(ViewConfig.getInstance().getTileViewTypeColorMap().get(TileViewType.Path));
+                            .setColor(ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Path));
 
                 }
                 model.getMatrix()[i][j].setTileStroke(setEnabled);
@@ -247,7 +223,7 @@ public class View implements PropertyChangeListener {
             for (TileView tile : row) {
                 if (!tile.getTile().equals(model.getRoot().getTile()) &&
                         !tile.getTile().equals(model.getTarget().getTile())) {
-                    tile.setColor(ViewConfig.getInstance().getTileTypeColorMap().get(tile.getTile().getType()));
+                    tile.setColor(ViewConfig.getINSTANCE().getTileTypeColorMap().get(tile.getTile().getType()));
                     tile.getTile().setPath(false);
                 }
             }
@@ -256,7 +232,7 @@ public class View implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        int size = Integer.parseInt(txtTileSize.getText());
+        int size = defaultTileSize;
         repaintGrid(model.getGrid(), size);
     }
 }
