@@ -71,7 +71,7 @@ public class AStarStrategy extends PathfindingStrategy {
 
 
     private int HeuristicToPositional(Tile tile, int dist){ //Эвристическая оценка
-        return  dist + Heuristic(tile) + tile.getWeight();
+        return  dist + Heuristic(tile);
     }
 
     private List<Tile> dist(Node node){//нахождение пройденного пути(добавление его в список)
@@ -85,7 +85,7 @@ public class AStarStrategy extends PathfindingStrategy {
 
     private int Heuristic(Tile tile){ //Эвристика
         return (Math.abs(tile.row - finish.row)
-                + Math.abs(tile.col - finish.col));
+                + Math.abs(tile.col - finish.col)) * finish.getWeight();
     }
 
     private void Neighbours(){ //проверка и добавление соседей в очередь с приоритетом
