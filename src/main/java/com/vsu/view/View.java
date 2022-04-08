@@ -37,9 +37,9 @@ public class View implements PropertyChangeListener {
     Scene scene;
 
     int padding = 2;
-    int defaultRowCount = 30;
-    int defaultColCount = 30;
-    int defaultTileSize = 24;
+    int defaultRowCount = 70;
+    int defaultColCount = 109;
+    int defaultTileSize = 10;
     double leftPanelSize = 0.2;
     boolean update = false;
 

@@ -101,7 +101,7 @@ public class TileView {
                 }
                 if (!(gridView.getTarget() == null)) {
                     gridView.getTarget().setColorEvent(ViewConfig.getINSTANCE()
-                            .getTileViewTypeColorMap().get(TileViewType.Ordinary));
+                            .getTileTypeColorMap().get(tile.getType()));
                 }
                 gridView.setTarget(this);
                 setColorEvent(ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Destination));

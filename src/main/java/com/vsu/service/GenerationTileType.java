@@ -56,7 +56,7 @@ public class GenerationTileType {
 
     }
 
-    public double noise(double x, double y) {
+    private double noise(double x, double y) {
         double value = 0.0;
         double size = default_size;
         double initialSize = size;
@@ -70,7 +70,7 @@ public class GenerationTileType {
     }
 
 
-    public double smoothNoise(double x, double y, double z) {
+    private double smoothNoise(double x, double y, double z) {
         x += this.seed;
         y += this.seed;
         x += this.seed;
