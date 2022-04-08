@@ -27,7 +27,7 @@ public class Tile {
     @Getter @Setter
     @EqualsAndHashCode.Exclude Entity entity;
 
-    
+
 
     public Tile(int row, int col, GridTopology archetype, int weight) {
         this.row = row;

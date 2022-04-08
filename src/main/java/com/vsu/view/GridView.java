@@ -2,6 +2,7 @@ package com.vsu.view;
 
 import com.vsu.AI.Entity;
 import com.vsu.model.Grid;
+import com.vsu.model.Tile;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,8 @@ public class GridView {
     TileView[][] matrix;
     List<Entity> seekers;
     Entity runner;
+    @Getter @Setter
+    boolean isMazeGenerated;
 
     public void addSeeker(Entity entity) {
         seekers.add(entity);
@@ -35,6 +38,9 @@ public class GridView {
     }
 
     public void setRunner(Entity runner) {
+        if (this.runner != null) {
+            this.runner.getTile().setEntity(null);
+        }
         this.runner = runner;
     }
 
@@ -47,6 +53,7 @@ public class GridView {
         root = null;
         this.grid = grid;
         seekers = new ArrayList<>();
+        isMazeGenerated = false;
         runner = null;
     }
 
