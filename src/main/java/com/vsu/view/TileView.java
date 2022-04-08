@@ -81,9 +81,11 @@ public class TileView {
     private void setEvents() {
         stackPane.setOnMouseClicked(e -> {
             isClicked = true;
+            System.out.println(gridView.isMazeGenerated());
             String tilePickerChoice = view.tileViewTypeComboBox.getValue().toString();
             if (tilePickerChoice.equals(TileViewType.Source.toString())) {
-                if (tile.getType() == TileType.Wall) {
+                if (tile.getType() == TileType.Wall || gridView.getSeekers().size()
+                        != 0 || gridView.getRunner() != null || !gridView.isMazeGenerated()) {
                     return;
                 }
                 if (!(gridView.getRoot() == null)) {
@@ -93,7 +95,8 @@ public class TileView {
                 gridView.setRoot(this);
                 setColorEvent(ViewConfig.getINSTANCE().getTileViewTypeColorMap().get(TileViewType.Source));
             } else if (tilePickerChoice.equals(TileViewType.Destination.toString())) {
-                if (tile.getType() == TileType.Wall) {
+                if (tile.getType() == TileType.Wall || gridView.getSeekers().size()
+                        != 0 || gridView.getRunner() != null  || !gridView.isMazeGenerated()) {
                     return;
                 }
                 if (!(gridView.getTarget() == null)) {

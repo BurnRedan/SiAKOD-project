@@ -6,7 +6,6 @@ import com.vsu.AI.EntityType;
 import com.vsu.maze_generation.MazeGenAlgorithms;
 import com.vsu.model.Grid;
 import com.vsu.model.Tile;
-import com.vsu.model.TileType;
 import com.vsu.pathfinder.PathfindingAlgorithms;
 import com.vsu.service.GridService;
 import com.vsu.service.grid.PlaneTopology;
@@ -24,7 +23,6 @@ import lombok.Getter;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -126,51 +124,34 @@ public class View implements PropertyChangeListener {
         clearButton.setOnAction(event -> {
             viewController.clearGrid(model.getGrid());
             int size = defaultTileSize;
+            model.setMazeGenerated(false);
             initGridView(model.getGrid(), size);
             repaintGrid(model.getGrid(), size);
             model.clearSeekers();
         });
 
-        //TODO: упростить поиск подходящих клеток
         createSeekerButton.setOnAction(event -> {
-            List<Tile> nonWallTiles = new ArrayList<>();
-            for (Tile[] matrix : model.getGrid().getMatrix()) {
-                for (Tile tile : matrix) {
-                    if (tile != null && tile.getEntity() == null
-                            && tile.getType() != TileType.Wall) {
-                        nonWallTiles.add(tile);
-                    }
-                }
+            if (model.getRoot() == null && model.getTarget() == null) {
+                List<Tile> nonWallTiles = GridService.getNonWallTiles(model.getGrid());
+                Tile tile = nonWallTiles.get(new Random().nextInt(0, nonWallTiles.size()));
+                Entity entity = new Entity(EntityType.Seeker, tile);
+                tile.setEntity(entity);
+                model.addSeeker(entity);
+                initGridView(model.getGrid(), defaultTileSize);
+                repaintGrid(model.getGrid(), defaultTileSize);
             }
-            int size = defaultTileSize;
-            Tile tile = nonWallTiles.get(new Random().nextInt(0, nonWallTiles.size()));
-            Entity entity = new Entity(EntityType.Seeker, tile);
-            tile.setEntity(entity);
-            model.addSeeker(entity);
-            initGridView(model.getGrid(), size);
-            repaintGrid(model.getGrid(), size);
-
-        });
-
-        createSeekerButton.setOnAction(event -> {
-            List<Tile> nonWallTiles = GridService.getNonWallTiles(model.getGrid());
-            Tile tile = nonWallTiles.get(new Random().nextInt(0, nonWallTiles.size()));
-            Entity entity = new Entity(EntityType.Seeker, tile);
-            tile.setEntity(entity);
-            model.addSeeker(entity);
-            initGridView(model.getGrid(), defaultTileSize);
-            repaintGrid(model.getGrid(), defaultTileSize);
         });
 
         createRunnerButton.setOnAction(event -> {
-            List<Tile> nonWallTiles = GridService.getNonWallTiles(model.getGrid());
-            Tile tile = nonWallTiles.get(new Random().nextInt(0, nonWallTiles.size()));
-            Entity entity = new Entity(EntityType.Runner, tile);
-            tile.setEntity(entity);
-            model.setRunner(entity);
-            initGridView(model.getGrid(), defaultTileSize);
-            repaintGrid(model.getGrid(), defaultTileSize);
-
+            if (model.getRoot() == null && model.getTarget() == null) {
+                List<Tile> nonWallTiles = GridService.getNonWallTiles(model.getGrid());
+                Tile tile = nonWallTiles.get(new Random().nextInt(0, nonWallTiles.size()));
+                Entity entity = new Entity(EntityType.Runner, tile);
+                tile.setEntity(entity);
+                model.setRunner(entity);
+                initGridView(model.getGrid(), defaultTileSize);
+                repaintGrid(model.getGrid(), defaultTileSize);
+            }
         });
 
         enableEntityAI.setOnAction(event -> {
@@ -209,6 +190,7 @@ public class View implements PropertyChangeListener {
                                 viewController.clearGrid(model.getGrid());
                                 model.clearSeekers();
                                 model.deleteRunner();
+                                model.setMazeGenerated(true);
                                 viewController.generateMaze(item, model.getGrid());
                                 int size = defaultTileSize;
                                 repaintGrid(model.getGrid(), size);
@@ -223,7 +205,7 @@ public class View implements PropertyChangeListener {
                                 .equals(item.toString()))
                         .forEachOrdered(item ->
                         {
-                            if (gridPane != null) {
+                            if (gridPane != null && model.getSeekers().size() == 0 && model.getRunner() == null) {
                                 int size = defaultTileSize;
                                 resetGrid(model);
                                 repaintGrid(model.getGrid(), size);
