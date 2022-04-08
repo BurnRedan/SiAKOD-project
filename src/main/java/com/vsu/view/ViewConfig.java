@@ -28,7 +28,7 @@ public class ViewConfig {
         tileTypeColorMap.put(TileType.Swamp, Color.DARKGREEN);
         tileTypeColorMap.put(TileType.Pavement, Color.WHITE);
         tileTypeColorMap.put(TileType.Wall, Color.BLACK);
-        tileTypeColorMap.put(TileType.Lake, Color.ALICEBLUE);
+        tileTypeColorMap.put(TileType.Lake, Color.CADETBLUE);
         tileTypeColorMap.put(TileType.Room, Color.PALEGOLDENROD);
 
         tileViewTypeColorMap = new HashMap<>();
